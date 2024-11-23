@@ -8,6 +8,15 @@ import { expect } from 'chai';
 import { model } from './model-decorator.js';
 import { ModelReflector } from './model-reflector.js';
 describe('model', function () {
+    it('does not require arguments', function () {
+        let Target = class Target {
+        };
+        Target = __decorate([
+            model()
+        ], Target);
+        const res = ModelReflector.getMetadata(Target);
+        expect(res).to.be.eql({ name: 'Target' });
+    });
     it('sets given options to the target metadata', function () {
         let Target = class Target {
         };

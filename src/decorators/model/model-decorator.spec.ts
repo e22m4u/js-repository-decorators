@@ -3,6 +3,13 @@ import {model} from './model-decorator.js';
 import {ModelReflector} from './model-reflector.js';
 
 describe('model', function () {
+  it('does not require arguments', function () {
+    @model()
+    class Target {}
+    const res = ModelReflector.getMetadata(Target);
+    expect(res).to.be.eql({name: 'Target'});
+  });
+
   it('sets given options to the target metadata', function () {
     @model({
       tableName: 'MyTable',

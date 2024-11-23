@@ -71,6 +71,7 @@ function model(options) {
     const decoratorType = (0, import_ts_reflector4.getDecoratorTargetType)(target);
     if (decoratorType !== import_ts_reflector3.DecoratorTargetType.CONSTRUCTOR)
       throw new Error("@model decorator is only supported on a class.");
+    options = options ?? {};
     const metadata = {
       ...options,
       name: options.name ?? target.name

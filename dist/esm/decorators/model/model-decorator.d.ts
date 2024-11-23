@@ -11,4 +11,4 @@ export type ModelOptions = Flatten<PartialBy<ModelMetadata, 'name'>>;
  *
  * @param options
  */
-export declare function model<T extends object>(options: ModelOptions): (target: Constructor<T>) => void;
+export declare function model<T extends object>(options?: ModelOptions): (target: Constructor<T>) => void;

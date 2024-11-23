@@ -11,6 +11,7 @@ export function model(options) {
         const decoratorType = getDecoratorTargetType(target);
         if (decoratorType !== DecoratorTargetType.CONSTRUCTOR)
             throw new Error('@model decorator is only supported on a class.');
+        options = options ?? {};
         const metadata = {
             ...options,
             name: options.name ?? target.name,
