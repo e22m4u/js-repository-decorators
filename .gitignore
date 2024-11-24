@@ -1,3 +1,6 @@
+dist/tsconfig.tsbuildinfo
+dist/**/*.spec.*
+
 # OS
 .DS_Store
 
