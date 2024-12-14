@@ -1,6 +1,6 @@
 {
   "name": "@e22m4u/js-repository-decorators",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "TypeScript decorators for @e22m4u/js-repository",
   "author": "e22m4u <e22m4u@yandex.ru>",
   "keywords": [
