@@ -3,6 +3,7 @@
   "version": "0.0.6",
   "description": "TypeScript decorators for @e22m4u/js-repository",
   "author": "e22m4u <e22m4u@yandex.ru>",
+  "license": "MIT",
   "keywords": [
     "js-repository",
     "decorators"
@@ -67,6 +68,5 @@
     "tsx": "~4.19.3",
     "typescript": "~5.8.2",
     "typescript-eslint": "~8.28.0"
-  },
-  "license": "MIT"
+  }
 }
