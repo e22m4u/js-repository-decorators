@@ -1,20 +1,18 @@
 # @e22m4u/js-repository-decorators
 
-*English | [Русский](README-ru.md)*
-
-TypeScript decorators for
+TypeScript декораторы для
 [@e22m4u/js-repository](https://www.npmjs.com/package/@e22m4u/js-repository)
 
-## Installation
+## Установка
 
 ```bash
 npm install @e22m4u/js-repository-decorators
 ```
 
-#### Decorator Support
+#### Поддержка декораторов
 
-To enable decorator support, add the following options
-to your project's `tsconfig.json` file.
+Для включения поддержки декораторов, добавьте указанные
+ниже опции в файл `tsconfig.json` вашего проекта.
 
 ```json
 {
@@ -23,7 +21,7 @@ to your project's `tsconfig.json` file.
 }
 ```
 
-## Example
+## Пример
 
 ```ts
 import {
@@ -94,12 +92,12 @@ const modelDef = getModelDefinitionFromClass(User);
 // },
 ```
 
-## Tests
+## Тесты
 
 ```bash
 npm run test
 ```
 
-## License
+## Лицензия
 
 MIT
