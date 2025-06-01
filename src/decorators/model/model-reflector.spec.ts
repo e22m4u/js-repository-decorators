@@ -1,5 +1,4 @@
 import {expect} from 'chai';
-import {describe} from 'mocha';
 import {Reflector} from '@e22m4u/ts-reflector';
 import {ModelReflector} from './model-reflector.js';
 import {MODEL_METADATA_KEY} from './model-metadata.js';
