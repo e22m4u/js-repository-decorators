@@ -197,7 +197,12 @@ function getModelDefinitionFromClass(ctor) {
   const relsMd = RelationReflector.getMetadata(ctor);
   const propDefs = Object.fromEntries(propsMd);
   const relDefs = Object.fromEntries(relsMd);
-  return { ...modelMd, properties: propDefs, relations: relDefs };
+  const modelDef = { ...modelMd };
+  if (Object.keys(propDefs).length)
+    modelDef.properties = propDefs;
+  if (Object.keys(relDefs).length)
+    modelDef.relations = relDefs;
+  return modelDef;
 }
 __name(getModelDefinitionFromClass, "getModelDefinitionFromClass");
 // Annotate the CommonJS export names for ESM import in node:

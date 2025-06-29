@@ -65,4 +65,11 @@ describe('getModelDefinitionFromClass', function () {
       },
     });
   });
+
+  it('should not return empty properties and relations', function () {
+    @model()
+    class MyModel {}
+    const res = getModelDefinitionFromClass(MyModel);
+    expect(res).to.be.eql({name: 'MyModel'});
+  });
 });

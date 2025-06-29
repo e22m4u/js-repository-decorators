@@ -19,5 +19,8 @@ export function getModelDefinitionFromClass<T extends object>(
   const relsMd = RelationReflector.getMetadata(ctor);
   const propDefs = Object.fromEntries(propsMd);
   const relDefs = Object.fromEntries(relsMd);
-  return {...modelMd, properties: propDefs, relations: relDefs};
+  const modelDef: ModelDefinition = {...modelMd};
+  if (Object.keys(propDefs).length) modelDef.properties = propDefs;
+  if (Object.keys(relDefs).length) modelDef.relations = relDefs;
+  return modelDef;
 }
