@@ -24,12 +24,10 @@ npm install @e22m4u/js-repository-decorators
 ## Пример
 
 ```ts
-import {
-  model,
-  property,
-  relation,
-  getModelDefinitionFromClass,
-} from '@e22m4u/js-repository-decorators';
+import {model} from '@e22m4u/js-repository-decorators';
+import {property} from '@e22m4u/js-repository-decorators';
+import {relation} from '@e22m4u/js-repository-decorators';
+import {getModelDefinitionFromClass} from '@e22m4u/js-repository-decorators';
 
 import {DataType} from '@e22m4u/js-repository';
 import {RelationType} from '@e22m4u/js-repository';
