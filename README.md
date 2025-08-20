@@ -103,7 +103,7 @@ const modelDef = getModelDefinitionFromClass(User);
 ```ts
 import {model} from '@e22m4u/js-repository-decorators';
 
-@model() // <===
+@model() // <---
 class User {}
 ```
 
@@ -114,7 +114,7 @@ class User {}
 ```ts
 import {model} from '@e22m4u/js-repository-decorators';
 
-@model({datasource: 'mongo'}) // <===
+@model({datasource: 'mongo'}) // <---
 class User {}
 ```
 
@@ -126,7 +126,7 @@ class User {}
 ```ts
 import {model} from '@e22m4u/js-repository-decorators';
 
-@model({tableName: 'users'}) // <===
+@model({tableName: 'users'}) // <---
 class User {}
 ```
 
@@ -141,7 +141,7 @@ import {property} from '@e22m4u/js-repository-decorators';
 
 @model()
 class User {
-  @property(DataType.STRING) // <===
+  @property(DataType.STRING) // <---
   name?: string;
 }
 ```
@@ -165,10 +165,10 @@ import {property} from '@e22m4u/js-repository-decorators';
 
 @model()
 class User {
-  @property(DataType.STRING) // <===
+  @property(DataType.STRING) // <---
   name?: string;
 
-  @property({type: DataType.STRING}) // <===
+  @property({type: DataType.STRING}) // <---
   surname?: string;
 }
 ```
@@ -185,7 +185,7 @@ import {property} from '@e22m4u/js-repository-decorators';
 class Article {
   @property({
     type: DataType.ARRAY,
-    itemType: DataType.STRING, // <===
+    itemType: DataType.STRING, // <---
   })
   tags?: string[];
 }
@@ -212,7 +212,7 @@ class LatLng {
 class Address {
   @property({
     type: DataType.OBJECT,
-    model: LatLng.name, // <===
+    model: LatLng.name, // <---
   })
   coordinates?: LatLng;
 }
@@ -230,7 +230,7 @@ import {property} from '@e22m4u/js-repository-decorators';
 class User {
   @property({
     type: DataType.STRING,
-    primaryKey: true, // <===
+    primaryKey: true, // <---
   })
   id!: string;
 }
@@ -249,7 +249,7 @@ import {property} from '@e22m4u/js-repository-decorators';
 class User {
   @property({
     type: DataType.STRING,
-    columnName: 'NAME', // <===
+    columnName: 'NAME', // <---
   })
   name?: string;
 }
@@ -267,7 +267,7 @@ import {property} from '@e22m4u/js-repository-decorators';
 class User {
   @property({
     type: DataType.STRING,
-    required: true, // <===
+    required: true, // <---
   })
   name!: string;
 }
@@ -285,7 +285,7 @@ import {property} from '@e22m4u/js-repository-decorators';
 class User {
   @property({
     type: DataType.STRING,
-    default: 'John Doe', // <===
+    default: 'John Doe', // <---
   })
   name?: string;
 }
@@ -304,8 +304,8 @@ class User {
   @property({
     type: DataType.STRING,
     validate: {
-      minLength: 2,  // <===
-      maxLength: 24, // <===
+      minLength: 2,  // <---
+      maxLength: 24, // <---
     },
   })
   name?: string;
@@ -325,7 +325,7 @@ import {property} from '@e22m4u/js-repository-decorators';
 class User {
   @property({
     type: DataType.STRING,
-    unique: true, // <===
+    unique: true, // <---
   })
   username!: string;
 }
