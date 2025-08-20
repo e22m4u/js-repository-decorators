@@ -161,6 +161,24 @@ class User {
 - `DataType.ARRAY` только значение типа `array`
 - `DataType.OBJECT` только значение типа `object`
 
+#### type
+
+Тип передается первым аргументом или внутри объекта опций.
+
+```ts
+import {DataType} from '@e22m4u/js-repository';
+import {property} from '@e22m4u/js-repository-decorators';
+
+@model()
+class User {
+  @property(DataType.STRING) // <=
+  name?: string;
+
+  @property({type: DataType.STRING}) // <=
+  surname?: string;
+}
+```
+
 #### itemType
 
 Определение типа для элемента массива.
