@@ -155,11 +155,13 @@ class User {
 Типы данных.
 
 - `DataType.ANY` разрешено любое значение
-- `DataType.STRING` только значение типа string
-- `DataType.NUMBER` только значение типа number
-- `DataType.BOOLEAN` только значение типа boolean
-- `DataType.ARRAY` только значение типа array
-- `DataType.OBJECT` только значение типа object
+- `DataType.STRING` только значение типа `string`
+- `DataType.NUMBER` только значение типа `number`
+- `DataType.BOOLEAN` только значение типа `boolean`
+- `DataType.ARRAY` только значение типа `array`
+- `DataType.OBJECT` только значение типа `object`
+
+#### itemType
 
 Определение типа для элемента массива.
 
@@ -176,6 +178,8 @@ class Article {
   tags?: string[];
 }
 ```
+
+#### model
 
 Определение модели объекта.
 
@@ -202,6 +206,8 @@ class Address {
 }
 ```
 
+#### primaryKey
+
 Определение первичного ключа.  
 (по умолчанию свойство `id`)
 
@@ -219,6 +225,8 @@ class User {
 }
 ```
 
+#### columnName
+
 Определение названия колонки/свойства в базе данных.
 
 ```ts
@@ -234,6 +242,8 @@ class User {
   name?: string;
 }
 ```
+
+#### required
 
 Определение свойства обязательным.  
 (запрет [пустых значений](https://www.npmjs.com/package/@e22m4u/js-repository#Пустые-значения))
@@ -252,6 +262,8 @@ class User {
 }
 ```
 
+#### default
+
 Определение значения по умолчанию.
 
 ```ts
@@ -267,6 +279,8 @@ class User {
   name?: string;
 }
 ```
+
+#### validate
 
 Определение [валидаторов](#https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы).
 
@@ -286,6 +300,8 @@ class User {
   name?: string;
 }
 ```
+
+#### unique
 
 Определение свойства уникальным.
 
