@@ -92,11 +92,11 @@ const modelDef = getModelDefinitionFromClass(User);
 
 ## Декораторы
 
-- [@model(options?: ModelOptions)](#@model(options?: ModelOptions)) - объявление модели
-- [@property(metadata: PropertyMetadata)](#@property(metadata: PropertyMetadata)) - объявление свойства
-- [@relation(metadata: RelationMetadata)](#@relation(metadata: RelationMetadata)) - объявление связи
+- [@model(options?: ModelOptions)](#model) - объявление модели
+- [@property(metadata: PropertyMetadata)](#property) - объявление свойства
+- [@relation(metadata: RelationMetadata)](#relation) - объявление связи
 
-### @model(options?: ModelOptions)
+### <a id="model"></a> @model(options?: ModelOptions)
 
 Декоратор применяется к классу, объявляя его моделью.
 
@@ -136,7 +136,7 @@ class User {
 }
 ```
 
-### @property(metadata: PropertyMetadata)
+### <a id="property"></a> @property(metadata: PropertyMetadata)
 
 Декоратор применяется к свойству экземпляра класса, определяя
 тип допустимого значения для свойства модели.
@@ -311,7 +311,9 @@ class User {
 }
 ```
 
+### <a id="relation"></a> @relation(metadata: RelationMetadata)
 
+WIP
 
 ## Тесты
 
