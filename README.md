@@ -334,12 +334,6 @@ class User {
     unique: true, // <=
   })
   username!: string;
-
-  @property({
-    type: DataType.STRING,
-    unique: PropertyUniqueness.SPARSE, // <=
-  })
-  email?: string;
 }
 ```
 
