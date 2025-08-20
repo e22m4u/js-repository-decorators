@@ -337,7 +337,7 @@ class User {
 }
 ```
 
-Типы уникальности.
+Опции проверки.
 
 - `PropertyUniqueness.STRICT` строгая проверка
 - `PropertyUniqueness.SPARSE` не проверять [пустые значения](https://www.npmjs.com/package/@e22m4u/js-repository##Пустые-значения)
