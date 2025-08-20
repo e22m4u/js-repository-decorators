@@ -331,6 +331,12 @@ import {property} from '@e22m4u/js-repository-decorators';
 class User {
   @property({
     type: DataType.STRING,
+    unique: true, // <=
+  })
+  username!: string;
+
+  @property({
+    type: DataType.STRING,
     unique: PropertyUniqueness.SPARSE, // <=
   })
   email?: string;
@@ -339,7 +345,7 @@ class User {
 
 Режимы проверки.
 
-- `PropertyUniqueness.STRICT` строгая проверка
+- `PropertyUniqueness.STRICT` или `true` для строгой проверки
 - `PropertyUniqueness.SPARSE` не проверять [пустые значения](https://www.npmjs.com/package/@e22m4u/js-repository#Пустые-значения)
 - `PropertyUniqueness.NON_UNIQUE` не проверять (по умолчанию)
 
