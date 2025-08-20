@@ -139,7 +139,7 @@ class User {
 ### <a id="property"></a> @property(metadata: PropertyMetadata)
 
 Декоратор применяется к свойству экземпляра класса, определяя
-тип допустимого значения для свойства модели.
+тип допустимого значения свойства модели.
 
 ```ts
 import {DataType} from '@e22m4u/js-repository';
