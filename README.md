@@ -339,7 +339,38 @@ class User {
 
 ### <a id="relation"></a> @relation(metadata: RelationMetadata)
 
-WIP
+Декоратор применяется к свойству экземпляра класса, определяя
+тип связи к целевой модели.
+
+#### Belongs To
+
+Текущая модель содержит свойство для идентификатора цели.
+
+```ts
+import {RelationType} from '@e22m4u/js-repository';
+import {model} from '@e22m4u/js-repository-decorators';
+import {relation} from '@e22m4u/js-repository-decorators';
+import {property} from '@e22m4u/js-repository-decorators';
+
+@model()
+class Role {
+  @property(DataType.STRING)
+  name?: string;
+}
+
+@model()
+class User {
+  @property(DataType.STRING)
+  roleId?: string;
+
+  @relation({
+    type: RelationType.BELONGS_TO, // <=
+    model: Role.name,
+    foreignKey: 'roleId',
+  })
+  role?: Role;
+}
+```
 
 ## Тесты
 
