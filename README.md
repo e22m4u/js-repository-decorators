@@ -226,8 +226,7 @@ class Address {
 
 #### primaryKey
 
-Определение первичного ключа.  
-(по умолчанию свойство `id`)
+Определение первичного ключа (по умолчанию свойство `id`).
 
 ```ts
 import {DataType} from '@e22m4u/js-repository';
@@ -245,7 +244,8 @@ class User {
 
 #### columnName
 
-Определение названия колонки/свойства в базе данных.
+Определение названия колонки/свойства в базе данных.  
+(по умолчанию имя свойства)
 
 ```ts
 import {DataType} from '@e22m4u/js-repository';
@@ -263,8 +263,7 @@ class User {
 
 #### required
 
-Определение свойства обязательным.  
-(запрет [пустых значений](https://www.npmjs.com/package/@e22m4u/js-repository#Пустые-значения))
+Определение свойства обязательным (запрет [пустых значений](https://www.npmjs.com/package/@e22m4u/js-repository#Пустые-значения)).
 
 ```ts
 import {DataType} from '@e22m4u/js-repository';
@@ -300,7 +299,7 @@ class User {
 
 #### validate
 
-Определение [валидаторов](#https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы).
+Определение [валидаторов](https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы).
 
 ```ts
 import {DataType} from '@e22m4u/js-repository';
@@ -323,13 +322,6 @@ class User {
 
 Определение свойства уникальным.
 
-- `PropertyUniqueness.STRICT`  
-  строгая проверка на уникальность
-- `PropertyUniqueness.SPARSE`  
-  исключить из проверки [пустые значения](https://www.npmjs.com/package/@e22m4u/js-repository##Пустые-значения)
-- `PropertyUniqueness.NON_UNIQUE`  
-  не проверять на уникальность (по умолчанию)
-
 ```ts
 import {DataType} from '@e22m4u/js-repository';
 import {PropertyUniqueness} from '@e22m4u/js-repository';
@@ -344,6 +336,12 @@ class User {
   email?: string;
 }
 ```
+
+Типы уникальности.
+
+- `PropertyUniqueness.STRICT` строгая проверка
+- `PropertyUniqueness.SPARSE` не проверять [пустые значения](https://www.npmjs.com/package/@e22m4u/js-repository##Пустые-значения)
+- `PropertyUniqueness.NON_UNIQUE` не проверять (по умолчанию)
 
 ### <a id="relation"></a> @relation(metadata: RelationMetadata)
 
