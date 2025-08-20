@@ -104,9 +104,7 @@ const modelDef = getModelDefinitionFromClass(User);
 import {model} from '@e22m4u/js-repository-decorators';
 
 @model() // <=
-class User {
-  // ...
-}
+class User {}
 ```
 
 Определение [источника данных](https://www.npmjs.com/package/@e22m4u/js-repository#%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85).
@@ -117,9 +115,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 @model({
   datasource: 'mongo', // <=
 })
-class User {
-  // ...
-}
+class User {}
 ```
 
 Определение названия коллекции/таблицы в базе данных.  
@@ -131,9 +127,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 @model({
   tableName: 'users', // <=
 })
-class User {
-  // ...
-}
+class User {}
 ```
 
 ### <a id="property"></a> @property(metadata: PropertyMetadata)
