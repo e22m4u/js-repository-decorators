@@ -107,16 +107,18 @@ import {model} from '@e22m4u/js-repository-decorators';
 class User {}
 ```
 
+#### datasource
+
 Определение [источника данных](https://www.npmjs.com/package/@e22m4u/js-repository#%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85).
 
 ```ts
 import {model} from '@e22m4u/js-repository-decorators';
 
-@model({
-  datasource: 'mongo', // <=
-})
+@model({datasource: 'mongo'}) // <=
 class User {}
 ```
+
+#### tableName
 
 Определение названия коллекции/таблицы в базе данных.  
 (по умолчанию используется имя класса)
@@ -124,9 +126,7 @@ class User {}
 ```ts
 import {model} from '@e22m4u/js-repository-decorators';
 
-@model({
-  tableName: 'users', // <=
-})
+@model({tableName: 'users'}) // <=
 class User {}
 ```
 
