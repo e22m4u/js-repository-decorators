@@ -406,6 +406,40 @@ class User {
 }
 ```
 
+#### Has Many
+
+Целевая модель ссылается на текущую по принципу *один ко многим*.  
+(обратная сторона *Belongs To*)
+
+```ts
+import {RelationType} from '@e22m4u/js-repository';
+import {model} from '@e22m4u/js-repository-decorators';
+import {relation} from '@e22m4u/js-repository-decorators';
+import {property} from '@e22m4u/js-repository-decorators';
+
+@model()
+class Article {
+  @property(DataType.STRING)
+  authorId?: string;
+
+  @relation({
+    type: RelationType.BELONGS_TO,
+    model: Author.name,
+  })
+  author?: Author;
+}
+
+@model()
+class Author {
+  @relation({
+    type: RelationType.HAS_MANY, // <=
+    model: Article.name,
+    foreignKey: 'authorId',
+  })
+  articles?: Article[];
+}
+```
+
 ## Тесты
 
 ```bash
