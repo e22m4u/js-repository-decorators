@@ -374,7 +374,7 @@ class User {
 
 #### Has One
 
-Целевая модель ссылается на текущую по принципу *один к одному*.
+Целевая модель ссылается на текущую по принципу *один к одному*.  
 (обратная сторона *Belongs To*)
 
 ```ts
@@ -403,23 +403,6 @@ class User {
     foreignKey: 'userId',
   })
   profile?: Profile;
-}
-```
-
-#### Has Many
-
-Целевая модель ссылается на текущую (обратная сторона *Belongs To*).
-
-```ts
-import {RelationType} from '@e22m4u/js-repository';
-import {model} from '@e22m4u/js-repository-decorators';
-import {relation} from '@e22m4u/js-repository-decorators';
-import {property} from '@e22m4u/js-repository-decorators';
-
-@model()
-class Role {
-
-  users?: User[];
 }
 ```
 
