@@ -9,6 +9,12 @@ TypeScript декораторы для
 npm install @e22m4u/js-repository-decorators
 ```
 
+Модуль [js-repository](https://www.npmjs.com/package/@e22m4u/js-repository) также должен быть установлен.
+
+```bash
+npm install @e22m4u/js-repository
+```
+
 #### Поддержка декораторов
 
 Для включения поддержки декораторов, добавьте указанные
@@ -24,18 +30,48 @@ npm install @e22m4u/js-repository-decorators
 ## Пример
 
 ```ts
-import {model} from '@e22m4u/js-repository-decorators';
-import {property} from '@e22m4u/js-repository-decorators';
-import {relation} from '@e22m4u/js-repository-decorators';
-import {getModelDefinitionFromClass} from '@e22m4u/js-repository-decorators';
+import {
+  model,
+  property,
+  relation,
+  getModelDefinitionFromClass,
+} from '@e22m4u/js-repository-decorators';
 
-import {DataType} from '@e22m4u/js-repository';
-import {RelationType} from '@e22m4u/js-repository';
+import {
+  DataType,
+  RelationType,
+  DatabaseSchema,
+} from '@e22m4u/js-repository';
 
-@model({
-  tableName: 'myUserTable',
-  datasource: 'myDatasource',
-})
+// создание экземпляра DatabaseSchema
+const dbs = new DatabaseSchema();
+
+// объявление источника данных на примере MongoDB адаптера
+// @e22m4u/js-repository-mongodb-adapter (устанавливается отдельно)
+dbs.defineDatasource({
+  name: 'myDatabase1', // название нового источника
+  adapter: 'mongodb',  // название адаптера
+  // параметры подключения
+  host: '127.0.0.1',
+  port: 27017,
+  database: 'myDatabase',
+});
+
+// определение модели Role
+@model({datasource: 'myDatabase1'})
+class Role {
+  @property({
+    type: DataType.STRING,
+    primaryKey: true,
+  })
+  id!: string;
+  
+  @property(DataType.STRING)
+  name?: string;
+}
+
+// определение модели User
+@model({datasource: 'myDatabase1'})
 class User {
   @property({
     type: DataType.STRING,
@@ -53,20 +89,22 @@ class User {
     type: DataType.STRING,
     default: '',
   })
-  roleId!: string;
+  roleId?: string;
 
   @relation({
     type: RelationType.BELONGS_TO,
-    model: 'Role',
+    model: Role.name,
   })
-  role?: object;
+  role?: Role;
 }
 
-const modelDef = getModelDefinitionFromClass(User);
+const roleDef = getModelDefinitionFromClass(Role);
+const userDef = getModelDefinitionFromClass(User);
+
+console.log(userDef);
 // {
 //   "name": "User",
-//   "tableName": "myUserTable",
-//   "datasource": "myDatasource",
+//   "datasource": "myDatabase1",
 //   "properties": {
 //     "id": {
 //       "type": "string",
@@ -88,6 +126,34 @@ const modelDef = getModelDefinitionFromClass(User);
 //     },
 //   },
 // },
+
+// регистрация моделей
+dbs.defineModel(roleDef);
+dbs.defineModel(userDef);
+
+// получение репозиториев
+const roleRep = dbs.getRepository(Role.name);
+const userRep = dbs.getRepository(User.name);
+
+// создание новых документов
+const manager = await roleRep.create({name: 'Manager'});
+const user = await userRep.create({name: 'John', roleId: manager.id})
+
+// извлечение документа и связанных данных
+const userWithRole = await userRep.findById(user.id, {
+  include: 'role',
+});
+
+console.log(userWithRole);
+// {
+//   "id": "64f3454e5e0893c13f9bf47e",
+//   "name": "John",
+//   "roleId": "64f34549bf47e3c13fe5e089",
+//   "role": {
+//     "id": "64f34549bf47e3c13fe5e089",
+//     "name": "Manager",
+//   }
+// }
 ```
 
 ## Декораторы
