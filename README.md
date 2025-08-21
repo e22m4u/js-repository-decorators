@@ -440,6 +440,36 @@ class Author {
 }
 ```
 
+#### References Many
+
+Связь через массив идентификаторов.
+
+```ts
+import {RelationType} from '@e22m4u/js-repository';
+import {model} from '@e22m4u/js-repository-decorators';
+import {relation} from '@e22m4u/js-repository-decorators';
+import {property} from '@e22m4u/js-repository-decorators';
+
+@model()
+class City {}
+
+@model()
+class User {
+  @property({
+    type: DataType.ARRAY,
+    itemType: DataType.STRING,
+  })
+  cityIds?: string[];
+
+  @relation({
+    type: RelationType.REFERENCES_MANY,
+    model: City.name,
+    foreignKey: 'cityIds',
+  })
+  cities?: City[];
+}
+```
+
 ## Тесты
 
 ```bash
