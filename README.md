@@ -31,17 +31,17 @@ npm install @e22m4u/js-repository
 
 ```ts
 import {
+  DataType,
+  RelationType,
+  DatabaseSchema,
+} from '@e22m4u/js-repository';
+
+import {
   model,
   property,
   relation,
   getModelDefinitionFromClass,
 } from '@e22m4u/js-repository-decorators';
-
-import {
-  DataType,
-  RelationType,
-  DatabaseSchema,
-} from '@e22m4u/js-repository';
 
 // создание экземпляра DatabaseSchema
 const dbs = new DatabaseSchema();
