@@ -344,7 +344,7 @@ class User {
 
 #### Belongs To
 
-Текущая модель содержит свойство для идентификатора цели.
+Текущая модель содержит ссылку на целевую модель.
 
 ```ts
 import {RelationType} from '@e22m4u/js-repository';
