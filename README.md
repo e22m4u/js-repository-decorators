@@ -353,10 +353,7 @@ import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
 @model()
-class Role {
-  @property(DataType.STRING)
-  name?: string;
-}
+class Role {}
 
 @model()
 class User {
@@ -372,6 +369,57 @@ class User {
     // постфикса "Id"
   })
   role?: Role;
+}
+```
+
+#### Has One
+
+Целевая модель ссылается на текущую по принципу *один к одному*.
+(обратная сторона *Belongs To*)
+
+```ts
+import {RelationType} from '@e22m4u/js-repository';
+import {model} from '@e22m4u/js-repository-decorators';
+import {relation} from '@e22m4u/js-repository-decorators';
+import {property} from '@e22m4u/js-repository-decorators';
+
+@model()
+class Profile {
+  @property(DataType.STRING)
+  userId?: string;
+
+  @relation({
+    type: RelationType.BELONGS_TO,
+    model: User.name,
+  })
+  user?: User;
+}
+
+@model()
+class User {
+  @relation({
+    type: RelationType.HAS_ONE, // <=
+    model: Profile.name,
+    foreignKey: 'userId',
+  })
+  profile?: Profile;
+}
+```
+
+#### Has Many
+
+Целевая модель ссылается на текущую (обратная сторона *Belongs To*).
+
+```ts
+import {RelationType} from '@e22m4u/js-repository';
+import {model} from '@e22m4u/js-repository-decorators';
+import {relation} from '@e22m4u/js-repository-decorators';
+import {property} from '@e22m4u/js-repository-decorators';
+
+@model()
+class Role {
+
+  users?: User[];
 }
 ```
 
