@@ -438,6 +438,25 @@ class User {
 }
 ```
 
+Пример документа Role.
+
+```json
+{
+  "_id": "68a9c85f31f4414606e7da79",
+  "name": "Manager"
+}
+```
+
+Пример документа User.
+
+```json
+{
+  "_id": "68a9c9b52eab80fa02ee6ccb",
+  "name": "John Doe",
+  "roleId": "68a9c85f31f4414606e7da79"
+}
+```
+
 #### Has One
 
 Целевая модель ссылается на текущую по принципу *один к одному*.  
@@ -469,6 +488,26 @@ class User {
     foreignKey: 'userId',
   })
   profile?: Profile;
+}
+```
+
+Пример документа Profile.
+
+```json
+{
+  "_id": "68a9c85f31f4414606e7da79",
+  "phone": "+78005553535",
+  "address": "101000, Moscow, Boulevard, 291"
+  "userId": "68a9c9b52eab80fa02ee6ccb"
+}
+```
+
+Пример документа User.
+
+```json
+{
+  "_id": "68a9c9b52eab80fa02ee6ccb",
+  "name": "John Doe"
 }
 ```
 
@@ -506,6 +545,32 @@ class Author {
 }
 ```
 
+Пример коллекции *Articles*.
+
+```json
+[
+  {
+    "_id": "68a9ccc43fe39dd49b4d283c",
+    "title": "The Bottle and the Babe",
+    "authorId": "68a9c9b52eab80fa02ee6ccb"
+  },
+  {
+    "_id": "68a9cd32f06233bba3aeadfe",
+    "title": "The War Logs",
+    "authorId": "68a9c9b52eab80fa02ee6ccb"
+  }
+]
+```
+
+Пример документа Author.
+
+```json
+{
+  "_id": "68a9c9b52eab80fa02ee6ccb",
+  "name": "John Doe"
+}
+```
+
 #### References Many
 
 Связь через массив идентификаторов.
@@ -534,6 +599,77 @@ class User {
   })
   cities?: City[];
 }
+```
+
+Пример документа User.
+
+```json
+{
+  "_id": "68a9c85f31f4414606e7da79",
+  "name": "John Doe",
+  "cityIds": [
+    "68a9c79e0f69f169bd711d5d",
+    "68a9c839d0d046bcd43df978"
+  ]
+}
+```
+
+#### Belongs To (полиморфная версия)
+
+Текущая модель ссылается на целевую, используя внешний ключ и дискриминатор.
+
+```ts
+import {RelationType} from '@e22m4u/js-repository';
+import {model} from '@e22m4u/js-repository-decorators';
+import {relation} from '@e22m4u/js-repository-decorators';
+import {property} from '@e22m4u/js-repository-decorators';
+
+@model()
+class Author {}
+
+@model()
+class Article {}
+
+@model()
+class Image {
+  @property(DataType.STRING)
+  ownerId?: string;
+
+  @property(DataType.STRING)
+  ownerType?: string;
+
+  @relation({
+    type: RelationType.BELONGS_TO, // <=
+    polymorphic: true,             // <=
+    // полиморфный режим позволяет хранить название целевой модели
+    // в свойстве-дискриминаторе, которое формируется согласно
+    // названию связи с постфиксом "Type", и в данном случае
+    // название целевой модели хранит "ownerId",
+    // а идентификатор документа "ownerType"
+    foreignKey: 'ownerId',     // (не обязательно)
+    discriminator: 'ownerType' // (не обязательно)
+  })
+  owner?: Author | Article;
+}
+```
+
+Пример коллекции *Images*.
+
+```json
+[
+  {
+    "_id": "68a9c9b52eab80fa02ee6ccb",
+    "path": "/storage/upload/12.png",
+    "ownerType": "Author"
+    "ownerId": "68a9c85f31f4414606e7da78"
+  },
+  {
+    "_id": "68a9cfdf43fb7961ad68af1b",
+    "path": "/storage/upload/13.png",
+    "ownerType": "Article"
+    "ownerId": "68a9cfd16767b49624fd16d6"
+  }
+]
 ```
 
 ## Тесты
