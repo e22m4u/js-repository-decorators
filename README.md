@@ -185,7 +185,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 class User {}
 ```
 
-Опции.
+Опции (свойства `ModelOptions`).
 
 - [datasource](#ModelOptions.datasource) - название источника данных;
 - [tableName](#ModelOptions.tableName) - названия таблицы в базе данных;
@@ -238,7 +238,7 @@ class User {
 - `DataType.ARRAY` - только значение типа `array`
 - `DataType.OBJECT` - только значение типа `object`
 
-Опции
+Опции (свойства `PropertyMetadata`).
 
 - [type](#PropertyMetadata.type) - тип значений;
 - [itemType](#PropertyMetadata.itemType) - тип элемента (для массива);
