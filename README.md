@@ -1,7 +1,9 @@
 # @e22m4u/js-repository-decorators
 
 TypeScript декораторы для
-[@e22m4u/js-repository](https://www.npmjs.com/package/@e22m4u/js-repository)
+[@e22m4u/js-repository](https://www.npmjs.com/package/@e22m4u/js-repository),
+позволяющие описывать модели данных, свойства и связи с помощью
+декларативного синтаксиса.
 
 ## Оглавление
 
