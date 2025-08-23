@@ -450,7 +450,12 @@ class User {
 - [Has One](#RelationMetadataHasOne) - обратная сторона Belongs To (*один к одному*);
 - [Has Many](#RelationMetadataHasMany) - обратная сторона Belongs To (*один ко многим*);
 - [References Many](#RelationMetadataReferencesMany) - ссылка через массив идентификаторов;
-- [Belongs To (полиморфная версия)](#RelationMetadataPolyBelongsTo) - внешний ключ и дискриминатор;
+
+Полиморфные связи:  
+(модель определяется дискриминатором)
+
+- [Polymorphic Belongs To](#RelationMetadataPolyBelongsTo) - внешний ключ и дискриминатор;
+- [Polymorphic Has One](#RelationMetadataPolyHasOne) - обратная сторона Belongs To (*один к одному*);
 
 #### <a id="RelationMetadataBelongsTo"></a> Belongs To
 
@@ -859,7 +864,7 @@ class Image {
 {
   "_id": "68a9cfd16767b49624fd16d6",
   "title": "The History Logs",
-  "content": "First published in 1912, History has been a..."
+  "content": "First published in 1912..."
 }
 ```
 
@@ -907,10 +912,93 @@ console.log(images);
 //     owner: {
 //       id: '68a9cfd16767b49624fd16d6',
 //       title: 'The History Logs',
-//       content: 'First published in 1912, History has been a...'
+//       content: 'First published in 1912...'
 //     }
 //   }
 // ]
+```
+
+#### <a id="RelationMetadataPolyHasOne"></a> Has One (полиморфная версия)
+
+Целевая модель ссылается на текущую, используя внешний ключ и дискриминатор.
+(обратная сторона полиморфной связи *Belongs To*)
+
+```ts
+import {RelationType} from '@e22m4u/js-repository';
+import {model} from '@e22m4u/js-repository-decorators';
+import {relation} from '@e22m4u/js-repository-decorators';
+import {property} from '@e22m4u/js-repository-decorators';
+
+// модель Image
+@model()
+class Image {
+  @property(DataType.STRING)
+  ownerId?: string;
+
+  @property(DataType.STRING)
+  ownerType?: string;
+
+  @relation({
+    type: RelationType.BELONGS_TO,
+    polymorphic: true,
+  })
+  owner?: object;
+}
+
+// модель User
+@model()
+class User {
+  @property(DataType.STRING)
+  name?: string;
+
+  @relation({
+    type: RelationType.HAS_ONE,
+    model: Image.name,    // название целевой модели
+    polymorphic: 'owner', // название полиморфной связи целевой модели
+    // вместо названия связи можно явно указать свойства целевой модели
+    //   polymorphic: true,
+    //   foreignKey: 'ownerId',
+    //   discriminator: 'ownerType',
+  })
+  avatar?: Image;
+}
+```
+
+Документ *Image*.
+
+```json
+{
+  "_id": "68a9c9b52eab80fa02ee6ccb",
+  "path": "/storage/upload/14.png",
+  "ownerType": "User",
+  "ownerId": "68a9c85f31f4414606e7da78"
+}
+```
+
+Документ *User*.
+
+```json
+{
+  "_id": "68a9c85f31f4414606e7da78",
+  "name": "John Doe"
+}
+```
+
+Извлечение документа *User* и разрешение связи `avatar`.
+
+```ts
+const user = userRep.findOne({include: 'avatar'});
+console.log(user);
+{
+  id: '68a9c85f31f4414606e7da78',
+  name: 'John Doe',
+  avatar: {
+    id: '68a9c9b52eab80fa02ee6ccb',
+    path: '/storage/upload/14.png',
+    ownerType: 'User',
+    ownerId: '68a9c85f31f4414606e7da78'
+  }
+}
 ```
 
 ## Тесты
