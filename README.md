@@ -181,7 +181,7 @@ console.log(userWithRole);
 
 ### <a id="model"></a> @model(options?: ModelOptions)
 
-Декоратор применяется к классу, объявляя его моделью.
+Декоратор применяется к классу и назначает его моделью определенной коллекции/таблицы в базе данных или встраиваемой частью других моделей.
 
 ```ts
 import {model} from '@e22m4u/js-repository-decorators';
