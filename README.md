@@ -557,6 +557,7 @@ class Profile {
   @relation({
     type: RelationType.BELONGS_TO,
     model: User.name,
+    // см. Belongs To
   })
   user?: User;
 }
@@ -636,6 +637,7 @@ class Article {
   @relation({
     type: RelationType.BELONGS_TO,
     model: Author.name,
+    // см. Belongs To
   })
   author?: Author;
 }
