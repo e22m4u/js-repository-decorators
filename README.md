@@ -192,8 +192,8 @@ class User {}
 
 Опции (свойства объекта `ModelOptions`).
 
-- [datasource](#ModelOptions.datasource) - название источника данных;
-- [tableName](#ModelOptions.tableName) - названия таблицы в базе данных;
+- [datasource](#ModelOptionsdatasource) - название источника данных;
+- [tableName](#ModelOptionstableName) - названия таблицы в базе данных;
 
 #### ModelOptions.datasource
 
@@ -245,15 +245,15 @@ class User {
 
 Кроме типа данных, первый аргумент декоратора может принимать объект `PropertyDefinition` со следующими свойствами.
 
-- [type](#PropertyDefinition.type) - тип допустимых значений;
-- [itemType](#PropertyDefinition.itemType) - тип элемента (для массива);
-- [model](#PropertyDefinitionModel.model) - название модели (для объекта);
-- [primaryKey](#PropertyDefinitionModel.primaryKey) - первичный ключ;
-- [columnName](#PropertyDefinitionModel.columnName) - название колонки в базе данных;
-- [required](#PropertyDefinitionModel.required) - исключение `null` и `undefined`;
-- [default](#PropertyDefinitionModel.default) - значение по умолчанию;
-- [validate](#PropertyDefinitionModel.validate) - проверка формата;
-- [unique](#PropertyDefinitionModel.unique) - проверка уникальности;
+- [type](#PropertyDefinitiontype) - тип допустимых значений;
+- [itemType](#PropertyDefinitionitemType) - тип элемента (для массива);
+- [model](#PropertyDefinitionModelmodel) - название модели (для объекта);
+- [primaryKey](#PropertyDefinitionModelprimaryKey) - первичный ключ;
+- [columnName](#PropertyDefinitionModelcolumnName) - название колонки в базе данных;
+- [required](#PropertyDefinitionModelrequired) - исключение `null` и `undefined`;
+- [default](#PropertyDefinitionModeldefault) - значение по умолчанию;
+- [validate](#PropertyDefinitionModelvalidate) - проверка формата;
+- [unique](#PropertyDefinitionModelunique) - проверка уникальности;
 
 #### PropertyDefinition.type
 
