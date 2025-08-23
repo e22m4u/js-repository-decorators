@@ -389,7 +389,11 @@ class User {
 
 #### <a id="PropertyMetadataValidate"></a> validate
 
-Определение [валидаторов](https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы).
+Определение предустановленных валидаторов.
+
+- `minLength: number` - минимальная длинна строки или массива;
+- `maxLength: number` - максимальная длинна строки или массива;
+- `regexp: string | RegExp` - проверка по регулярному выражению;
 
 ```ts
 import {DataType} from '@e22m4u/js-repository';
@@ -407,6 +411,9 @@ class User {
   name?: string;
 }
 ```
+
+*i. Для регистрации пользовательских валидаторов
+см. [Валидаторы](https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы).*
 
 #### <a id="PropertyMetadataUnique"></a> unique
 
