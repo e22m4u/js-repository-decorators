@@ -5,15 +5,15 @@ TypeScript декораторы для
 
 ## Оглавление
 
-- [Установка](#Установка)
-  - [Поддержка декораторов](Поддержка-декораторов)
-- [Пример](#Пример)
-- [Декораторы](#Декораторы)
+- [Установка](#установка)
+  - [Поддержка декораторов](#поддержка-декораторов)
+- [Пример](#пример)
+- [Декораторы](#декораторы)
   - [@model](#model)
   - [@property](#property)
   - [@relation](#relation)
-- [Тесты](#Тесты)
-- [Лицензия](#Лицензия)
+- [Тесты](#тесты)
+- [Лицензия](#лицензия)
 
 ## Установка
 
@@ -58,10 +58,13 @@ import {
 // создание экземпляра DatabaseSchema
 const dbs = new DatabaseSchema();
 
+// объявление константы источника данных
+const MY_DATABASE_1 = 'myDatabase1';
+
 // объявление источника данных на примере MongoDB адаптера
 // @e22m4u/js-repository-mongodb-adapter (устанавливается отдельно)
 dbs.defineDatasource({
-  name: 'myDatabase1', // название нового источника
+  name: MY_DATABASE_1, // название нового источника
   adapter: 'mongodb',  // название адаптера
   // параметры подключения
   host: '127.0.0.1',
@@ -70,7 +73,7 @@ dbs.defineDatasource({
 });
 
 // модель Role
-@model({datasource: 'myDatabase1'})
+@model({datasource: MY_DATABASE_1})
 class Role {
   @property({
     type: DataType.STRING,
@@ -83,7 +86,7 @@ class Role {
 }
 
 // модель User
-@model({datasource: 'myDatabase1'})
+@model({datasource: MY_DATABASE_1})
 class User {
   @property({
     type: DataType.STRING,
@@ -110,6 +113,7 @@ class User {
   role?: Role;
 }
 
+// получение репозиториев каждой модели
 const roleDef = getModelDefinitionFromClass(Role);
 const userDef = getModelDefinitionFromClass(User);
 
@@ -240,7 +244,7 @@ class User {
 
 Первым аргументом декоратора может быть передан объект со следующими свойствами.
 
-- [type](#PropertyMetadataType) - тип значений;
+- [type](#PropertyMetadataType) - тип допустимых значений;
 - [itemType](#PropertyMetadataItemType) - тип элемента (для массива);
 - [model](#PropertyMetadataModel) - название модели (для объекта);
 - [primaryKey](#PropertyMetadataPrimaryKey) - первичный ключ;
