@@ -10,9 +10,9 @@ TypeScript декораторы для ORM/ODM модуля
 - [Установка](#установка)
 - [Пример](#пример)
 - [Декораторы](#декораторы)
-  - [@model](#model)
-  - [@property](#property)
-  - [@relation](#relation)
+  - [@model](#modeloptions-modeloptions)
+  - [@property](#propertymetadata-propertymetadata)
+  - [@relation](#relationmetadata-relationmetadata)
 - [Тесты](#тесты)
 - [Лицензия](#лицензия)
 
@@ -175,11 +175,11 @@ console.log(userWithRole);
 
 ## Декораторы
 
-- [@model](#model) - объявление модели
-- [@property](#property) - объявление свойства
-- [@relation](#relation) - объявление связи
+- [@model](#modeloptions-modeloptions) - объявление модели
+- [@property](#propertymetadata-propertymetadata) - объявление свойства
+- [@relation](#relationmetadata-relationmetadata) - объявление связи
 
-### <a id="model"></a> @model(options?: ModelOptions)
+### @model(options?: ModelOptions)
 
 Декоратор применяется к классу и назначает его моделью определенной коллекции/таблицы в базе данных или встраиваемой частью других моделей.
 
@@ -192,10 +192,10 @@ class User {}
 
 Опции (свойства объекта `ModelOptions`).
 
-- [datasource](#ModelOptionsDatasource) - название источника данных;
-- [tableName](#ModelOptionsTableName) - названия таблицы в базе данных;
+- [datasource](#ModelOptions.datasource) - название источника данных;
+- [tableName](#ModelOptions.tableName) - названия таблицы в базе данных;
 
-#### <a id="ModelOptionsDatasource"></a> datasource
+#### ModelOptions.datasource
 
 Определение [источника данных](https://www.npmjs.com/package/@e22m4u/js-repository#%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85).
 
@@ -206,7 +206,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 class User {}
 ```
 
-#### <a id="ModelOptionsTableName"></a> tableName
+#### ModelOptions.tableName
 
 Определение названия коллекции/таблицы в базе данных.  
 *(по умолчанию используется имя класса)*
@@ -218,7 +218,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 class User {}
 ```
 
-### <a id="property"></a> @property(metadata: PropertyMetadata)
+### @property(metadata: PropertyMetadata)
 
 Декоратор применяется к свойству экземпляра класса, определяя
 тип допустимого значения.
@@ -243,19 +243,19 @@ class User {
 }
 ```
 
-Кроме типа данных, первый аргумент декоратора может принимать объект `PropertyMetadata` со следующими свойствами.
+Кроме типа данных, первый аргумент декоратора может принимать объект `PropertyDefinition` со следующими свойствами.
 
-- [type](#PropertyMetadataType) - тип допустимых значений;
-- [itemType](#PropertyMetadataItemType) - тип элемента (для массива);
-- [model](#PropertyMetadataModel) - название модели (для объекта);
-- [primaryKey](#PropertyMetadataPrimaryKey) - первичный ключ;
-- [columnName](#PropertyMetadataColumnName) - название колонки в базе данных;
-- [required](#PropertyMetadataRequired) - исключение `null` и `undefined`;
-- [default](#PropertyMetadataDefault) - значение по умолчанию;
-- [validate](#PropertyMetadataValidate) - проверка формата;
-- [unique](#PropertyMetadataUnique) - проверка уникальности;
+- [type](#PropertyDefinition.type) - тип допустимых значений;
+- [itemType](#PropertyDefinition.itemType) - тип элемента (для массива);
+- [model](#PropertyDefinitionModel.model) - название модели (для объекта);
+- [primaryKey](#PropertyDefinitionModel.primaryKey) - первичный ключ;
+- [columnName](#PropertyDefinitionModel.columnName) - название колонки в базе данных;
+- [required](#PropertyDefinitionModel.required) - исключение `null` и `undefined`;
+- [default](#PropertyDefinitionModel.default) - значение по умолчанию;
+- [validate](#PropertyDefinitionModel.validate) - проверка формата;
+- [unique](#PropertyDefinitionModel.unique) - проверка уникальности;
 
-#### <a id="PropertyMetadataType"></a> type
+#### PropertyDefinition.type
 
 Тип передается первым аргументом или внутри объекта опций.
 
@@ -270,7 +270,7 @@ class User {
 }
 ```
 
-#### <a id="PropertyMetadataItemType"></a> itemType
+#### PropertyDefinition.itemType
 
 Определение типа для элемента массива.
 
@@ -288,7 +288,7 @@ class Article {
 }
 ```
 
-#### <a id="PropertyMetadataModel"></a> model
+#### PropertyDefinitionModel.model
 
 Определение модели объекта.
 
@@ -315,7 +315,7 @@ class Address {
 }
 ```
 
-#### <a id="PropertyMetadataPrimaryKey"></a> primaryKey
+#### PropertyDefinitionModel.primaryKey
 
 Определение первичного ключа (по умолчанию свойство `id`).
 
@@ -333,7 +333,7 @@ class User {
 }
 ```
 
-#### <a id="PropertyMetadataColumnName"></a> columnName
+#### PropertyDefinitionModel.columnName
 
 Определение названия колонки/свойства в базе данных.  
 (по умолчанию имя свойства)
@@ -352,7 +352,7 @@ class User {
 }
 ```
 
-#### <a id="PropertyMetadataRequired"></a> required
+#### PropertyDefinitionModel.required
 
 Определение свойства обязательным (запрет [пустых значений](https://www.npmjs.com/package/@e22m4u/js-repository#Пустые-значения)).
 
@@ -370,7 +370,7 @@ class User {
 }
 ```
 
-#### <a id="PropertyMetadataDefault"></a> default
+#### PropertyDefinitionModel.default
 
 Определение значения по умолчанию.
 
@@ -388,7 +388,7 @@ class User {
 }
 ```
 
-#### <a id="PropertyMetadataValidate"></a> validate
+#### PropertyDefinitionModel.validate
 
 Использование предустановленных валидаторов.
 
@@ -416,7 +416,7 @@ class User {
 *i. Для регистрации пользовательских валидаторов
 см. раздел [Валидаторы](https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы) основного модуля.*
 
-#### <a id="PropertyMetadataUnique"></a> unique
+#### PropertyDefinitionModel.unique
 
 Определение свойства уникальным.
 
@@ -441,24 +441,24 @@ class User {
 - `PropertyUniqueness.SPARSE` не проверять [пустые значения](https://www.npmjs.com/package/@e22m4u/js-repository#Пустые-значения)
 - `PropertyUniqueness.NON_UNIQUE` не проверять (по умолчанию)
 
-### <a id="relation"></a> @relation(metadata: RelationMetadata)
+### @relation(metadata: RelationMetadata)
 
 Декоратор применяется к свойству экземпляра класса, определяя
 тип связи к целевой модели.
 
-- [Belongs To](#RelationMetadataBelongsTo) - ссылка через внешний ключ;
-- [Has One](#RelationMetadataHasOne) - обратная сторона Belongs To (*один к одному*);
-- [Has Many](#RelationMetadataHasMany) - обратная сторона Belongs To (*один ко многим*);
-- [References Many](#RelationMetadataReferencesMany) - ссылка через массив идентификаторов;
+- [Belongs To](#belongs-to) - ссылка через внешний ключ;
+- [Has One](#has-one) - обратная сторона Belongs To (*один к одному*);
+- [Has Many](#has-many) - обратная сторона Belongs To (*один ко многим*);
+- [References Many](#references-many) - ссылка через массив идентификаторов;
 
 Полиморфные версии:  
 (модель определяется дискриминатором)
 
-- [Polymorphic Belongs To](#RelationMetadataPolyBelongsTo) - ссылка через внешний ключ и дискриминатор;
-- [Polymorphic Has One](#RelationMetadataPolyHasOne) - обратная сторона полиморфного Belongs To (*один к одному*);
-- [Polymorphic Has Many](#RelationMetadataPolyHasMany) - обратная сторона полиморфного Belongs To (*один ко многим*);
+- [Polymorphic Belongs To](#belongs-to-полиморфная-версия) - ссылка через внешний ключ и дискриминатор;
+- [Polymorphic Has One](#has-one-полиморфная-версия) - обратная сторона полиморфного Belongs To (*один к одному*);
+- [Polymorphic Has Many](#has-many-полиморфная-версия) - обратная сторона полиморфного Belongs To (*один ко многим*);
 
-#### <a id="RelationMetadataBelongsTo"></a> Belongs To
+#### Belongs To
 
 Текущая модель ссылается на целевую используя внешний ключ.
 
@@ -531,7 +531,7 @@ console.log(user);
 // }
 ```
 
-#### <a id="RelationMetadataHasOne"></a> Has One
+#### Has One
 
 Целевая модель ссылается на текущую по принципу *один к одному*.  
 *(обратная сторона [Belongs To](#RelationMetadataBelongsTo))*
@@ -614,7 +614,7 @@ console.log(user);
 // }
 ```
 
-#### <a id="RelationMetadataHasMany"></a> Has Many
+#### Has Many
 
 Целевая модель ссылается на текущую по принципу *один ко многим*.  
 *(обратная сторона [Belongs To](#RelationMetadataBelongsTo))*
@@ -706,7 +706,7 @@ console.log(author);
 // }
 ```
 
-#### <a id="RelationMetadataReferencesMany"></a> References Many
+#### References Many
 
 Связь через массив идентификаторов.
 
@@ -797,7 +797,7 @@ console.log(user);
 // }
 ```
 
-#### <a id="RelationMetadataPolyBelongsTo"></a> Belongs To (полиморфная версия)
+#### Belongs To (полиморфная версия)
 
 Текущая модель ссылается на целевую, используя внешний ключ и дискриминатор.
 
@@ -921,7 +921,7 @@ console.log(images);
 // ]
 ```
 
-#### <a id="RelationMetadataPolyHasOne"></a> Has One (полиморфная версия)
+#### Has One (полиморфная версия)
 
 Целевая модель ссылается на текущую, используя внешний ключ и дискриминатор.  
 *(обратная сторона полиморфной [Belongs To](#RelationMetadataPolyBelongsTo))*
@@ -1007,7 +1007,7 @@ console.log(user);
 // }
 ```
 
-#### <a id="RelationMetadataPolyHasMany"></a> Has Many (полиморфная версия)
+#### Has Many (полиморфная версия)
 
 Целевая модель ссылается на текущую, используя внешний ключ и дискриминатор.  
 *(обратная сторона полиморфной [Belongs To](#RelationMetadataPolyBelongsTo))*
