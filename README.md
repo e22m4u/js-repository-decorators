@@ -941,6 +941,13 @@ class Image {
   @relation({
     type: RelationType.BELONGS_TO,
     polymorphic: true,
+    // полиморфный режим позволяет хранить название целевой модели
+    // в свойстве-дискриминаторе, которое формируется согласно
+    // названию связи с постфиксом "Type", и в данном случае
+    // название целевой модели хранит "referenceId",
+    // а идентификатор документа "referenceType"
+    foreignKey: 'referenceId',     // (не обязательно)
+    discriminator: 'referenceType' // (не обязательно)
   })
   reference?: object;
 }
@@ -1024,6 +1031,13 @@ class Image {
   @relation({
     type: RelationType.BELONGS_TO,
     polymorphic: true,
+    // полиморфный режим позволяет хранить название целевой модели
+    // в свойстве-дискриминаторе, которое формируется согласно
+    // названию связи с постфиксом "Type", и в данном случае
+    // название целевой модели хранит "referenceId",
+    // а идентификатор документа "referenceType"
+    foreignKey: 'referenceId',     // (не обязательно)
+    discriminator: 'referenceType' // (не обязательно)
   })
   reference?: object;
 }
