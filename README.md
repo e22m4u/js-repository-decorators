@@ -42,19 +42,10 @@ npm install @e22m4u/js-repository
 
 ## Пример
 
-```ts
-import {
-  DataType,
-  RelationType,
-  DatabaseSchema,
-} from '@e22m4u/js-repository';
+1. Объявление источника данных.
 
-import {
-  model,
-  property,
-  relation,
-  getModelDefinitionFromClass,
-} from '@e22m4u/js-repository-decorators';
+```ts
+import {DatabaseSchema} from '@e22m4u/js-repository';
 
 // создание экземпляра DatabaseSchema
 const dbs = new DatabaseSchema();
@@ -72,6 +63,22 @@ dbs.defineDatasource({
   port: 27017,
   database: 'myDatabase',
 });
+
+```
+
+2. Объявление моделей.
+
+```ts
+import {
+  DataType,
+  RelationType,
+} from '@e22m4u/js-repository';
+
+import {
+  model,
+  property,
+  relation,
+} from '@e22m4u/js-repository-decorators';
 
 // модель Role
 @model({datasource: MY_DATABASE_1})
@@ -114,6 +121,13 @@ class User {
   role?: Role;
 }
 
+```
+
+3. Регистрация моделей.
+
+```ts
+import {getModelDefinitionFromClass} from '@e22m4u/js-repository-decorators';
+
 // извлечение схем каждой модели
 const roleDef = getModelDefinitionFromClass(Role);
 const userDef = getModelDefinitionFromClass(User);
@@ -148,6 +162,11 @@ console.log(userDef);
 dbs.defineModel(roleDef);
 dbs.defineModel(userDef);
 
+```
+
+4. Операции с данными и разрешение связей.
+
+```ts
 // получение репозиториев
 const roleRep = dbs.getRepository(Role.name);
 const userRep = dbs.getRepository(User.name);
