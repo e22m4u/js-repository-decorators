@@ -419,10 +419,16 @@ import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
 @model()
-class Role {}
+class Role {
+  @property(DataType.STRING)
+  name?: string;
+}
 
 @model()
 class User {
+  @property(DataType.STRING)
+  name?: string;
+
   @property(DataType.STRING)
   roleId?: string;
 
@@ -438,7 +444,7 @@ class User {
 }
 ```
 
-Пример документа Role.
+Пример документа *Role*.
 
 ```json
 {
@@ -447,7 +453,7 @@ class User {
 }
 ```
 
-Пример документа User.
+Пример документа *User*.
 
 ```json
 {
@@ -455,6 +461,22 @@ class User {
   "name": "John Doe",
   "roleId": "68a9c85f31f4414606e7da79"
 }
+```
+
+Извлечение документа *User* и разрешение связи `role`.
+
+```ts
+const user = userRep.findOne({include: 'role'});
+console.log(user);
+// {
+//   id: '68a9c9b52eab80fa02ee6ccb',
+//   name: 'John Doe',
+//   roleId: '68a9c85f31f4414606e7da79',
+//   role: {
+//     id: '68a9c85f31f4414606e7da79',
+//     name: 'Manager'
+//   }
+// }
 ```
 
 #### Has One
@@ -471,6 +493,12 @@ import {property} from '@e22m4u/js-repository-decorators';
 @model()
 class Profile {
   @property(DataType.STRING)
+  phone?: string;
+
+  @property(DataType.STRING)
+  address?: string;
+
+  @property(DataType.STRING)
   userId?: string;
 
   @relation({
@@ -482,6 +510,9 @@ class Profile {
 
 @model()
 class User {
+  @property(DataType.STRING)
+  name?: string;
+
   @relation({
     type: RelationType.HAS_ONE, // <=
     model: Profile.name,
@@ -491,24 +522,41 @@ class User {
 }
 ```
 
-Пример документа Profile.
+Пример документа *Profile*.
 
 ```json
 {
   "_id": "68a9c85f31f4414606e7da79",
   "phone": "+78005553535",
-  "address": "101000, Moscow, Boulevard, 291"
+  "address": "101000, Moscow, Boulevard, 291",
   "userId": "68a9c9b52eab80fa02ee6ccb"
 }
 ```
 
-Пример документа User.
+Пример документа *User*.
 
 ```json
 {
   "_id": "68a9c9b52eab80fa02ee6ccb",
   "name": "John Doe"
 }
+```
+
+Извлечение документа *User* и разрешение связи `profile`.
+
+```ts
+const user = userRep.findOne({include: 'profile'});
+console.log(user);
+// {
+//   id: '68a9c9b52eab80fa02ee6ccb',
+//   name: 'John Doe',
+//   profile: {
+//     id: '68a9c85f31f4414606e7da79',
+//     phone: '+78005553535',
+//     address: '101000, Moscow, Boulevard, 291',
+//     userId: '68a9c9b52eab80fa02ee6ccb'
+//   }
+// }
 ```
 
 #### Has Many
@@ -525,6 +573,9 @@ import {property} from '@e22m4u/js-repository-decorators';
 @model()
 class Article {
   @property(DataType.STRING)
+  title?: string;
+
+  @property(DataType.STRING)
   authorId?: string;
 
   @relation({
@@ -536,6 +587,9 @@ class Article {
 
 @model()
 class Author {
+  @property(DataType.STRING)
+  name?: string;
+
   @relation({
     type: RelationType.HAS_MANY, // <=
     model: Article.name,
@@ -556,19 +610,42 @@ class Author {
   },
   {
     "_id": "68a9cd32f06233bba3aeadfe",
-    "title": "The War Logs",
+    "title": "The History Logs",
     "authorId": "68a9c9b52eab80fa02ee6ccb"
   }
 ]
 ```
 
-Пример документа Author.
+Пример документа *Author*.
 
 ```json
 {
   "_id": "68a9c9b52eab80fa02ee6ccb",
   "name": "John Doe"
 }
+```
+
+Извлечение документа *Author* и разрешение связи `articles`.
+
+```ts
+const author = authorRep.findOne({include: 'articles'});
+console.log(author);
+// {
+//   id: '68a9c9b52eab80fa02ee6ccb',
+//   name: 'John Doe',
+//   articles: [
+//     {
+//       id: '68a9ccc43fe39dd49b4d283c',
+//       title: 'The Bottle and the Babe',
+//       authorId: '68a9c9b52eab80fa02ee6ccb'
+//     },
+//     {
+//       id: '68a9cd32f06233bba3aeadfe',
+//       title: 'The History Logs',
+//       authorId: '68a9c9b52eab80fa02ee6ccb'
+//     }
+//   ]
+// }
 ```
 
 #### References Many
@@ -582,10 +659,16 @@ import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
 @model()
-class City {}
+class City {
+  @property(DataType.STRING)
+  name?: string;
+}
 
 @model()
 class User {
+  @property(DataType.STRING)
+  name?: string;
+
   @property({
     type: DataType.ARRAY,
     itemType: DataType.STRING,
@@ -601,7 +684,22 @@ class User {
 }
 ```
 
-Пример документа User.
+Пример коллекции *Cities*.
+
+```json
+[
+  {
+    "_id": "68a9c79e0f69f169bd711d5d",
+    "name": "Moscow"
+  },
+  {
+    "_id": "68a9c839d0d046bcd43df978",
+    "name": "Saint Petersburg"
+  }
+]
+```
+
+Пример документа *User*.
 
 ```json
 {
@@ -612,6 +710,31 @@ class User {
     "68a9c839d0d046bcd43df978"
   ]
 }
+```
+
+Извлечение документа *User* и разрешение связи `cities`.
+
+```ts
+const user = userRep.findOne({include: 'cities'});
+console.log(user);
+// {
+//   id: '68a9c85f31f4414606e7da79',
+//   name: 'John Doe',
+//   cityIds: [
+//     '68a9c79e0f69f169bd711d5d',
+//     '68a9c839d0d046bcd43df978'
+//   ],
+//   cities: [
+//     {
+//       id: '68a9c79e0f69f169bd711d5d',
+//       name: 'Moscow'
+//     },
+//     {
+//       id: '68a9c839d0d046bcd43df978',
+//       name: 'Saint Petersburg'
+//     }
+//   ]
+// }
 ```
 
 #### Belongs To (полиморфная версия)
@@ -625,10 +748,22 @@ import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
 @model()
-class Author {}
+class Author {
+  @property(DataType.STRING)
+  name?: string;
+
+  @property(DataType.NUMBER)
+  age?: number;
+}
 
 @model()
-class Article {}
+class Article {
+  @property(DataType.STRING)
+  title?: string;
+
+  @property(DataType.STRING)
+  content?: string;
+}
 
 @model()
 class Image {
@@ -653,6 +788,26 @@ class Image {
 }
 ```
 
+Пример документа *Author*.
+
+```json
+{
+  "_id": "68a9c85f31f4414606e7da78",
+  "name": "John Doe",
+  "age": 24
+}
+```
+
+Пример документа *Article*.
+
+```json
+{
+  "_id": "68a9cfd16767b49624fd16d6",
+  "title": "The History Logs",
+  "content": "First published in 1912, History has been a..."
+}
+```
+
 Пример коллекции *Images*.
 
 ```json
@@ -660,16 +815,47 @@ class Image {
   {
     "_id": "68a9c9b52eab80fa02ee6ccb",
     "path": "/storage/upload/12.png",
-    "ownerType": "Author"
+    "ownerType": "Author",
     "ownerId": "68a9c85f31f4414606e7da78"
   },
   {
     "_id": "68a9cfdf43fb7961ad68af1b",
     "path": "/storage/upload/13.png",
-    "ownerType": "Article"
+    "ownerType": "Article",
     "ownerId": "68a9cfd16767b49624fd16d6"
   }
 ]
+```
+
+Извлечение документов *Image* и разрешение связи `owner`.
+
+```ts
+const images = imageRep.find({include: 'owner'});
+console.log(images);
+// [
+//   {
+//     id: '68a9c9b52eab80fa02ee6ccb',
+//     path: '/storage/upload/12.png',
+//     ownerType: 'Author',
+//     ownerId: '68a9c85f31f4414606e7da78',
+//     owner: {
+//       id: '68a9c85f31f4414606e7da78',
+//       name: 'John Doe',
+//       age: 24
+//     }
+//   },
+//   {
+//     id: '68a9cfdf43fb7961ad68af1b',
+//     path: '/storage/upload/13.png',
+//     ownerType: 'Article',
+//     ownerId: '68a9cfd16767b49624fd16d6',
+//     owner: {
+//       id: '68a9cfd16767b49624fd16d6',
+//       title: 'The History Logs',
+//       content: 'First published in 1912, History has been a...'
+//     }
+//   }
+// ]
 ```
 
 ## Тесты
