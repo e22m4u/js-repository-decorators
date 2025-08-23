@@ -209,7 +209,7 @@ class User {}
 #### <a id="ModelOptionsTableName"></a> tableName
 
 Определение названия коллекции/таблицы в базе данных.  
-(по умолчанию используется имя класса)
+*(по умолчанию используется имя класса)*
 
 ```ts
 import {model} from '@e22m4u/js-repository-decorators';
@@ -534,7 +534,7 @@ console.log(user);
 #### <a id="RelationMetadataHasOne"></a> Has One
 
 Целевая модель ссылается на текущую по принципу *один к одному*.  
-(обратная сторона *Belongs To*)
+*(обратная сторона [Belongs To](#RelationMetadataBelongsTo))*
 
 ```ts
 import {RelationType} from '@e22m4u/js-repository';
@@ -617,7 +617,7 @@ console.log(user);
 #### <a id="RelationMetadataHasMany"></a> Has Many
 
 Целевая модель ссылается на текущую по принципу *один ко многим*.  
-(обратная сторона *Belongs To*)
+*(обратная сторона [Belongs To](#RelationMetadataBelongsTo))*
 
 ```ts
 import {RelationType} from '@e22m4u/js-repository';
@@ -924,7 +924,7 @@ console.log(images);
 #### <a id="RelationMetadataPolyHasOne"></a> Has One (полиморфная версия)
 
 Целевая модель ссылается на текущую, используя внешний ключ и дискриминатор.  
-(обратная сторона полиморфной связи *Belongs To*)
+*(обратная сторона полиморфной [Belongs To](#RelationMetadataPolyBelongsTo))*
 
 ```ts
 import {RelationType} from '@e22m4u/js-repository';
@@ -1010,7 +1010,7 @@ console.log(user);
 #### <a id="RelationMetadataPolyHasMany"></a> Has Many (полиморфная версия)
 
 Целевая модель ссылается на текущую, используя внешний ключ и дискриминатор.  
-(обратная сторона полиморфной связи *Belongs To*)
+*(обратная сторона полиморфной [Belongs To](#RelationMetadataPolyBelongsTo))*
 
 ```ts
 import {RelationType} from '@e22m4u/js-repository';
