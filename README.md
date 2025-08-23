@@ -452,7 +452,7 @@ class User {
 }
 ```
 
-Пример документа *Role*.
+Документ *Role*.
 
 ```json
 {
@@ -461,7 +461,7 @@ class User {
 }
 ```
 
-Пример документа *User*.
+Документ *User*.
 
 ```json
 {
@@ -532,7 +532,7 @@ class User {
 }
 ```
 
-Пример документа *Profile*.
+Документ *Profile*.
 
 ```json
 {
@@ -543,7 +543,7 @@ class User {
 }
 ```
 
-Пример документа *User*.
+Документ *User*.
 
 ```json
 {
@@ -611,7 +611,7 @@ class Author {
 }
 ```
 
-Пример коллекции *Articles*.
+Коллекция *Articles*.
 
 ```json
 [
@@ -628,7 +628,7 @@ class Author {
 ]
 ```
 
-Пример документа *Author*.
+Документ *Author*.
 
 ```json
 {
@@ -698,7 +698,7 @@ class User {
 }
 ```
 
-Пример коллекции *Cities*.
+Коллекция *Cities*.
 
 ```json
 [
@@ -713,7 +713,7 @@ class User {
 ]
 ```
 
-Пример документа *User*.
+Документ *User*.
 
 ```json
 {
@@ -805,7 +805,7 @@ class Image {
 }
 ```
 
-Пример документа *Author*.
+Документ *Author*.
 
 ```json
 {
@@ -815,7 +815,7 @@ class Image {
 }
 ```
 
-Пример документа *Article*.
+Документ *Article*.
 
 ```json
 {
@@ -825,7 +825,7 @@ class Image {
 }
 ```
 
-Пример коллекции *Images*.
+Коллекция *Images*.
 
 ```json
 [
