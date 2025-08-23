@@ -408,6 +408,12 @@ class User {
 Декоратор применяется к свойству экземпляра класса, определяя
 тип связи к целевой модели.
 
+- [Belongs To](#Belongs-To)
+- [Has One](#Has-One)
+- [Has Many](#Has-Many)
+- [References Many](#References-Many)
+- [Belongs To (полиморфная версия)](#Belongs-To-полиморфная-версия)
+
 #### Belongs To
 
 Текущая модель ссылается на целевую используя внешний ключ.
