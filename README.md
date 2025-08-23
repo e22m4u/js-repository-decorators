@@ -170,9 +170,9 @@ console.log(userWithRole);
 
 ## Декораторы
 
-- [@model(options?: ModelOptions)](#model) - объявление модели
-- [@property(metadata: PropertyMetadata)](#property) - объявление свойства
-- [@relation(metadata: RelationMetadata)](#relation) - объявление связи
+- [@model](#model) - объявление модели
+- [@property](#property) - объявление свойства
+- [@relation](#relation) - объявление связи
 
 ### <a id="model"></a> @model(options?: ModelOptions)
 
@@ -187,10 +187,10 @@ class User {}
 
 Опции.
 
-- [datasource](#datasource) - название источника данных;
-- [tableName](#tableName) - названия таблицы в базе данных;
+- [datasource](#ModelOptions.datasource) - название источника данных;
+- [tableName](#ModelOptions.tableName) - названия таблицы в базе данных;
 
-#### datasource
+#### <a id="ModelOptions.datasource"></a> datasource
 
 Определение [источника данных](https://www.npmjs.com/package/@e22m4u/js-repository#%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85).
 
@@ -201,7 +201,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 class User {}
 ```
 
-#### tableName
+#### <a id="ModelOptions.tableName"></a> tableName
 
 Определение названия коллекции/таблицы в базе данных.  
 (по умолчанию используется имя класса)
@@ -240,17 +240,17 @@ class User {
 
 Опции
 
-- [type](#type) - тип значений;
-- [itemType](#itemType) - тип элемента (для массива);
-- [model](#model) - название модели (для объекта);
-- [primaryKey](#primaryKey) - первичный ключ;
-- [columnName](#columnName) - название колонки в базе данных;
-- [required](#required) - исключение `null` и `undefined`;
-- [default](#default) - значение по умолчанию;
-- [validate](#validate) - проверка формата;
-- [unique](#unique) - проверка уникальности;
+- [type](#PropertyMetadata.type) - тип значений;
+- [itemType](#PropertyMetadata.itemType) - тип элемента (для массива);
+- [model](#PropertyMetadata.model) - название модели (для объекта);
+- [primaryKey](#PropertyMetadata.primaryKey) - первичный ключ;
+- [columnName](#PropertyMetadata.columnName) - название колонки в базе данных;
+- [required](#PropertyMetadata.required) - исключение `null` и `undefined`;
+- [default](#PropertyMetadata.default) - значение по умолчанию;
+- [validate](#PropertyMetadata.validate) - проверка формата;
+- [unique](#PropertyMetadata.unique) - проверка уникальности;
 
-#### type
+#### <a id="PropertyMetadata.type"></a> type
 
 Тип передается первым аргументом или внутри объекта опций.
 
@@ -268,7 +268,7 @@ class User {
 }
 ```
 
-#### itemType
+#### <a id="PropertyMetadata.itemType"></a> itemType
 
 Определение типа для элемента массива.
 
@@ -286,7 +286,7 @@ class Article {
 }
 ```
 
-#### model
+#### <a id="PropertyMetadata.model"></a> model
 
 Определение модели объекта.
 
@@ -313,7 +313,7 @@ class Address {
 }
 ```
 
-#### primaryKey
+#### <a id="PropertyMetadata.primaryKey"></a> primaryKey
 
 Определение первичного ключа (по умолчанию свойство `id`).
 
@@ -331,7 +331,7 @@ class User {
 }
 ```
 
-#### columnName
+#### <a id="PropertyMetadata.columnName"></a> columnName
 
 Определение названия колонки/свойства в базе данных.  
 (по умолчанию имя свойства)
@@ -350,7 +350,7 @@ class User {
 }
 ```
 
-#### required
+#### <a id="PropertyMetadata.required"></a> required
 
 Определение свойства обязательным (запрет [пустых значений](https://www.npmjs.com/package/@e22m4u/js-repository#Пустые-значения)).
 
@@ -368,7 +368,7 @@ class User {
 }
 ```
 
-#### default
+#### <a id="PropertyMetadata.default"></a> default
 
 Определение значения по умолчанию.
 
@@ -386,7 +386,7 @@ class User {
 }
 ```
 
-#### validate
+#### <a id="PropertyMetadata.validate"></a> validate
 
 Определение [валидаторов](https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы).
 
@@ -407,7 +407,7 @@ class User {
 }
 ```
 
-#### unique
+#### <a id="PropertyMetadata.unique"></a> unique
 
 Определение свойства уникальным.
 
@@ -437,13 +437,13 @@ class User {
 Декоратор применяется к свойству экземпляра класса, определяя
 тип связи к целевой модели.
 
-- [Belongs To](#Belongs-To) - ссылка через внешний ключ;
-- [Has One](#Has-One) - обратная сторона Belongs To (*один к одному*);
-- [Has Many](#Has-Many) - обратная сторона Belongs To (*один ко многим*);
-- [References Many](#References-Many) - ссылка через массив идентификаторов;
-- [Belongs To (полиморфная версия)](#Belongs-To-полиморфная-версия) - внешний ключ и дискриминатор;
+- [Belongs To](#RelationMetadata.BelongsTo) - ссылка через внешний ключ;
+- [Has One](#RelationMetadata.HasOne) - обратная сторона Belongs To (*один к одному*);
+- [Has Many](#RelationMetadata.HasMany) - обратная сторона Belongs To (*один ко многим*);
+- [References Many](#RelationMetadata.ReferencesMany) - ссылка через массив идентификаторов;
+- [Belongs To (полиморфная версия)](#RelationMetadata.PolyBelongsTo) - внешний ключ и дискриминатор;
 
-#### Belongs To
+#### <a id="RelationMetadata.BelongsTo"></a> Belongs To
 
 Текущая модель ссылается на целевую используя внешний ключ.
 
@@ -516,7 +516,7 @@ console.log(user);
 // }
 ```
 
-#### Has One
+#### <a id="RelationMetadata.HasOne"></a> Has One
 
 Целевая модель ссылается на текущую по принципу *один к одному*.  
 (обратная сторона *Belongs To*)
@@ -598,7 +598,7 @@ console.log(user);
 // }
 ```
 
-#### Has Many
+#### <a id="RelationMetadata.HasMany"></a> Has Many
 
 Целевая модель ссылается на текущую по принципу *один ко многим*.  
 (обратная сторона *Belongs To*)
@@ -689,7 +689,7 @@ console.log(author);
 // }
 ```
 
-#### References Many
+#### <a id="RelationMetadata.ReferencesMany"></a> References Many
 
 Связь через массив идентификаторов.
 
@@ -780,7 +780,7 @@ console.log(user);
 // }
 ```
 
-#### Belongs To (полиморфная версия)
+#### <a id="RelationMetadata.PolyBelongsTo"></a> Belongs To (полиморфная версия)
 
 Текущая модель ссылается на целевую, используя внешний ключ и дискриминатор.
 
