@@ -218,19 +218,6 @@ class User {}
 Декоратор применяется к свойству экземпляра класса, определяя
 тип допустимого значения.
 
-```ts
-import {DataType} from '@e22m4u/js-repository';
-import {property} from '@e22m4u/js-repository-decorators';
-
-@model()
-class User {
-  @property(DataType.STRING) // <=
-  name?: string;
-}
-```
-
-Типы данных.
-
 - `DataType.ANY` - разрешено любое значение
 - `DataType.STRING` - только значение типа `string`
 - `DataType.NUMBER` - только значение типа `number`
@@ -238,7 +225,18 @@ class User {
 - `DataType.ARRAY` - только значение типа `array`
 - `DataType.OBJECT` - только значение типа `object`
 
-Опции (свойства `PropertyMetadata`).
+```ts
+import {DataType} from '@e22m4u/js-repository';
+import {property} from '@e22m4u/js-repository-decorators';
+
+@model()
+class User {
+  @property(DataType.STRING)
+  name?: string;
+}
+```
+
+Первым аргументом декоратора может быть передан объект `PropertyMetadata`.
 
 - [type](#PropertyMetadataType) - тип значений;
 - [itemType](#PropertyMetadataItemType) - тип элемента (для массива);
@@ -260,9 +258,6 @@ import {property} from '@e22m4u/js-repository-decorators';
 
 @model()
 class User {
-  @property(DataType.STRING) // <=
-  name?: string;
-
   @property({type: DataType.STRING}) // <=
   surname?: string;
 }
