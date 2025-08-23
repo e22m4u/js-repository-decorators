@@ -451,7 +451,7 @@ class User {
 - [Has Many](#RelationMetadataHasMany) - обратная сторона Belongs To (*один ко многим*);
 - [References Many](#RelationMetadataReferencesMany) - ссылка через массив идентификаторов;
 
-Полиморфные связи:  
+Полиморфные версии:  
 (модель определяется дискриминатором)
 
 - [Polymorphic Belongs To](#RelationMetadataPolyBelongsTo) - внешний ключ и дискриминатор;
