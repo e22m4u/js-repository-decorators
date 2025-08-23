@@ -454,7 +454,7 @@ class User {
 Полиморфные версии:  
 (модель определяется дискриминатором)
 
-- [Polymorphic Belongs To](#RelationMetadataPolyBelongsTo) - внешний ключ и дискриминатор;
+- [Polymorphic Belongs To](#RelationMetadataPolyBelongsTo) - ссылка через внешний ключ и дискриминатор;
 - [Polymorphic Has One](#RelationMetadataPolyHasOne) - обратная сторона полиморфного Belongs To (*один к одному*);
 
 #### <a id="RelationMetadataBelongsTo"></a> Belongs To
