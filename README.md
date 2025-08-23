@@ -190,7 +190,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 class User {}
 ```
 
-Опции (свойства `ModelOptions`).
+Опции (свойства объекта `ModelOptions`).
 
 - [datasource](#ModelOptionsDatasource) - название источника данных;
 - [tableName](#ModelOptionsTableName) - названия таблицы в базе данных;
@@ -243,7 +243,7 @@ class User {
 }
 ```
 
-Первым аргументом декоратора может быть передан объект со следующими свойствами.
+Кроме типа данных, первый аргумент декоратора может принимать объект `PropertyMetadata` со следующими свойствами.
 
 - [type](#PropertyMetadataType) - тип допустимых значений;
 - [itemType](#PropertyMetadataItemType) - тип элемента (для массива);
