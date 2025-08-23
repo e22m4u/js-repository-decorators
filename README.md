@@ -418,12 +418,14 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
+// определение модели Role
 @model()
 class Role {
   @property(DataType.STRING)
   name?: string;
 }
 
+// определение модели User
 @model()
 class User {
   @property(DataType.STRING)
@@ -490,6 +492,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
+// определение модели Profile
 @model()
 class Profile {
   @property(DataType.STRING)
@@ -508,6 +511,7 @@ class Profile {
   user?: User;
 }
 
+// определение модели User
 @model()
 class User {
   @property(DataType.STRING)
@@ -570,6 +574,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
+// определение модели Article
 @model()
 class Article {
   @property(DataType.STRING)
@@ -585,6 +590,7 @@ class Article {
   author?: Author;
 }
 
+// определение модели Author
 @model()
 class Author {
   @property(DataType.STRING)
@@ -658,12 +664,14 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
+// определение модели City
 @model()
 class City {
   @property(DataType.STRING)
   name?: string;
 }
 
+// определение модели User
 @model()
 class User {
   @property(DataType.STRING)
@@ -747,6 +755,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
+// определение модели Author
 @model()
 class Author {
   @property(DataType.STRING)
@@ -756,6 +765,7 @@ class Author {
   age?: number;
 }
 
+// определение модели Article
 @model()
 class Article {
   @property(DataType.STRING)
@@ -765,6 +775,7 @@ class Article {
   content?: string;
 }
 
+// определение модели Image
 @model()
 class Image {
   @property(DataType.STRING)
