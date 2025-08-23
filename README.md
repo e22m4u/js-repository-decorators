@@ -429,7 +429,7 @@ class User {
   @relation({
     type: RelationType.BELONGS_TO, // <=
     model: Role.name,
-    foreignKey: 'roleId', // не обязательно
+    foreignKey: 'roleId', // (не обязательно)
     // если "foreignKey" не указан, то название внешнего
     // ключа формируется по названию связи с добавлением
     // постфикса "Id"
