@@ -247,13 +247,13 @@ class User {
 
 - [type](#PropertyDefinitiontype) - тип допустимых значений;
 - [itemType](#PropertyDefinitionitemType) - тип элемента (для массива);
-- [model](#PropertyDefinitionModelmodel) - название модели (для объекта);
-- [primaryKey](#PropertyDefinitionModelprimaryKey) - первичный ключ;
-- [columnName](#PropertyDefinitionModelcolumnName) - название колонки в базе данных;
-- [required](#PropertyDefinitionModelrequired) - исключение `null` и `undefined`;
-- [default](#PropertyDefinitionModeldefault) - значение по умолчанию;
-- [validate](#PropertyDefinitionModelvalidate) - проверка формата;
-- [unique](#PropertyDefinitionModelunique) - проверка уникальности;
+- [model](#PropertyDefinitionmodel) - название модели (для объекта);
+- [primaryKey](#PropertyDefinitionprimaryKey) - первичный ключ;
+- [columnName](#PropertyDefinitioncolumnName) - название колонки в базе данных;
+- [required](#PropertyDefinitionrequired) - исключение `null` и `undefined`;
+- [default](#PropertyDefinitiondefault) - значение по умолчанию;
+- [validate](#PropertyDefinitionvalidate) - проверка формата;
+- [unique](#PropertyDefinitionunique) - проверка уникальности;
 
 #### PropertyDefinition.type
 
@@ -288,7 +288,7 @@ class Article {
 }
 ```
 
-#### PropertyDefinitionModel.model
+#### PropertyDefinition.model
 
 Определение модели объекта.
 
@@ -315,7 +315,7 @@ class Address {
 }
 ```
 
-#### PropertyDefinitionModel.primaryKey
+#### PropertyDefinition.primaryKey
 
 Определение первичного ключа (по умолчанию свойство `id`).
 
@@ -333,7 +333,7 @@ class User {
 }
 ```
 
-#### PropertyDefinitionModel.columnName
+#### PropertyDefinition.columnName
 
 Определение названия колонки/свойства в базе данных.  
 (по умолчанию имя свойства)
@@ -352,7 +352,7 @@ class User {
 }
 ```
 
-#### PropertyDefinitionModel.required
+#### PropertyDefinition.required
 
 Определение свойства обязательным (запрет [пустых значений](https://www.npmjs.com/package/@e22m4u/js-repository#Пустые-значения)).
 
@@ -370,7 +370,7 @@ class User {
 }
 ```
 
-#### PropertyDefinitionModel.default
+#### PropertyDefinition.default
 
 Определение значения по умолчанию.
 
@@ -388,12 +388,12 @@ class User {
 }
 ```
 
-#### PropertyDefinitionModel.validate
+#### PropertyDefinition.validate
 
 Использование предустановленных валидаторов.
 
-- `minLength: number` - минимальная длинна строки или массива;
-- `maxLength: number` - максимальная длинна строки или массива;
+- `minLength: number` - минимальная длина строки или массива;
+- `maxLength: number` - максимальная длина строки или массива;
 - `regexp: string | RegExp` - проверка по регулярному выражению;
 
 ```ts
@@ -416,7 +416,7 @@ class User {
 *i. Для регистрации пользовательских валидаторов
 см. раздел [Валидаторы](https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы) основного модуля.*
 
-#### PropertyDefinitionModel.unique
+#### PropertyDefinition.unique
 
 Определение свойства уникальным.
 
@@ -518,7 +518,7 @@ class User {
 Извлечение документа *User* и разрешение связи `role`.
 
 ```ts
-const user = userRep.findOne({include: 'role'});
+const user = await userRep.findOne({include: 'role'});
 console.log(user);
 // {
 //   id: '68a9c9b52eab80fa02ee6ccb',
@@ -534,7 +534,7 @@ console.log(user);
 #### Has One
 
 Целевая модель ссылается на текущую по принципу *один к одному*.  
-*(обратная сторона [Belongs To](#RelationMetadataBelongsTo))*
+*(обратная сторона [Belongs To](#belongs-to))*
 
 ```ts
 import {RelationType} from '@e22m4u/js-repository';
@@ -600,7 +600,7 @@ class User {
 Извлечение документа *User* и разрешение связи `profile`.
 
 ```ts
-const user = userRep.findOne({include: 'profile'});
+const user = await userRep.findOne({include: 'profile'});
 console.log(user);
 // {
 //   id: '68a9c9b52eab80fa02ee6ccb',
@@ -617,7 +617,7 @@ console.log(user);
 #### Has Many
 
 Целевая модель ссылается на текущую по принципу *один ко многим*.  
-*(обратная сторона [Belongs To](#RelationMetadataBelongsTo))*
+*(обратная сторона [Belongs To](#belongs-to))*
 
 ```ts
 import {RelationType} from '@e22m4u/js-repository';
@@ -686,7 +686,7 @@ class Author {
 Извлечение документа *Author* и разрешение связи `articles`.
 
 ```ts
-const author = authorRep.findOne({include: 'articles'});
+const author = await authorRep.findOne({include: 'articles'});
 console.log(author);
 // {
 //   id: '68a9c9b52eab80fa02ee6ccb',
@@ -775,7 +775,7 @@ class User {
 Извлечение документа *User* и разрешение связи `cities`.
 
 ```ts
-const user = userRep.findOne({include: 'cities'});
+const user = await userRep.findOne({include: 'cities'});
 console.log(user);
 // {
 //   id: '68a9c85f31f4414606e7da79',
@@ -893,7 +893,7 @@ class Image {
 Извлечение документов *Image* и разрешение связи `reference`.
 
 ```ts
-const images = imageRep.find({include: 'reference'});
+const images = await imageRep.find({include: 'reference'});
 console.log(images);
 // [
 //   {
@@ -924,7 +924,7 @@ console.log(images);
 #### Has One (полиморфная версия)
 
 Целевая модель ссылается на текущую, используя внешний ключ и дискриминатор.  
-*(обратная сторона полиморфной [Belongs To](#RelationMetadataPolyBelongsTo))*
+*(обратная сторона полиморфной [Belongs To](#belongs-to-полиморфная-версия))*
 
 ```ts
 import {RelationType} from '@e22m4u/js-repository';
@@ -993,7 +993,7 @@ class User {
 Извлечение документа *User* и разрешение связи `avatar`.
 
 ```ts
-const user = userRep.findOne({include: 'avatar'});
+const user = await userRep.findOne({include: 'avatar'});
 console.log(user);
 // {
 //   id: '68a9c85f31f4414606e7da78',
@@ -1010,7 +1010,7 @@ console.log(user);
 #### Has Many (полиморфная версия)
 
 Целевая модель ссылается на текущую, используя внешний ключ и дискриминатор.  
-*(обратная сторона полиморфной [Belongs To](#RelationMetadataPolyBelongsTo))*
+*(обратная сторона полиморфной [Belongs To](#belongs-to-полиморфная-версия))*
 
 ```ts
 import {RelationType} from '@e22m4u/js-repository';
@@ -1052,7 +1052,7 @@ class Gallery {
     //   foreignKey: 'referenceId',
     //   discriminator: 'referenceType',
   })
-  images?: Image;
+  images?: Image[];
 }
 ```
 
@@ -1087,11 +1087,11 @@ class Gallery {
 Извлечение документа *Gallery* и разрешение связи `images`.
 
 ```ts
-const user = userRep.findOne({include: 'images'});
+const user = await userRep.findOne({include: 'images'});
 console.log(user);
 // {
 //   id: '68aa0d9bae2ef42208c2f4ec',
-//   name: 'Photos of spring holidays.',
+//   title: 'Photos of spring holidays.',
 //   images: [
 //     {
 //       _id: '68aa0db2dedc4922180b9ebf',
