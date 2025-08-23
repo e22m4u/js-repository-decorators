@@ -57,7 +57,7 @@ dbs.defineDatasource({
   database: 'myDatabase',
 });
 
-// определение модели Role
+// модель Role
 @model({datasource: 'myDatabase1'})
 class Role {
   @property({
@@ -70,7 +70,7 @@ class Role {
   name?: string;
 }
 
-// определение модели User
+// модель User
 @model({datasource: 'myDatabase1'})
 class User {
   @property({
@@ -418,14 +418,14 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
-// определение модели Role
+// модель Role
 @model()
 class Role {
   @property(DataType.STRING)
   name?: string;
 }
 
-// определение модели User
+// модель User
 @model()
 class User {
   @property(DataType.STRING)
@@ -492,7 +492,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
-// определение модели Profile
+// модель Profile
 @model()
 class Profile {
   @property(DataType.STRING)
@@ -511,7 +511,7 @@ class Profile {
   user?: User;
 }
 
-// определение модели User
+// модель User
 @model()
 class User {
   @property(DataType.STRING)
@@ -574,7 +574,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
-// определение модели Article
+// модель Article
 @model()
 class Article {
   @property(DataType.STRING)
@@ -590,7 +590,7 @@ class Article {
   author?: Author;
 }
 
-// определение модели Author
+// модель Author
 @model()
 class Author {
   @property(DataType.STRING)
@@ -664,14 +664,14 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
-// определение модели City
+// модель City
 @model()
 class City {
   @property(DataType.STRING)
   name?: string;
 }
 
-// определение модели User
+// модель User
 @model()
 class User {
   @property(DataType.STRING)
@@ -755,7 +755,7 @@ import {model} from '@e22m4u/js-repository-decorators';
 import {relation} from '@e22m4u/js-repository-decorators';
 import {property} from '@e22m4u/js-repository-decorators';
 
-// определение модели Author
+// модель Author
 @model()
 class Author {
   @property(DataType.STRING)
@@ -765,7 +765,7 @@ class Author {
   age?: number;
 }
 
-// определение модели Article
+// модель Article
 @model()
 class Article {
   @property(DataType.STRING)
@@ -775,7 +775,7 @@ class Article {
   content?: string;
 }
 
-// определение модели Image
+// модель Image
 @model()
 class Image {
   @property(DataType.STRING)
