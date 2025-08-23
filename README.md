@@ -414,7 +414,7 @@ class User {
 ```
 
 *i. Для регистрации пользовательских валидаторов
-см. [Валидаторы](https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы).*
+см. раздел [Валидаторы](https://www.npmjs.com/package/@e22m4u/js-repository#Валидаторы) основного модуля.*
 
 #### <a id="PropertyMetadataUnique"></a> unique
 
