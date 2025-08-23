@@ -3,6 +3,18 @@
 TypeScript декораторы для
 [@e22m4u/js-repository](https://www.npmjs.com/package/@e22m4u/js-repository)
 
+## Оглавление
+
+- [Установка](#Установка)
+  - [Поддержка декораторов](Поддержка-декораторов)
+- [Пример](#Пример)
+- [Декораторы](#Декораторы)
+  - [@model](#model)
+  - [@property](#property)
+  - [@relation](#relation)
+- [Тесты](#Тесты)
+- [Лицензия](#Лицензия)
+
 ## Установка
 
 ```bash
@@ -173,6 +185,11 @@ import {model} from '@e22m4u/js-repository-decorators';
 class User {}
 ```
 
+Опции.
+
+- [datasource](#datasource) - название источника данных;
+- [tableName](#tableName) - названия таблицы в базе данных;
+
 #### datasource
 
 Определение [источника данных](https://www.npmjs.com/package/@e22m4u/js-repository#%D0%B8%D1%81%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D0%BA-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85).
@@ -214,12 +231,24 @@ class User {
 
 Типы данных.
 
-- `DataType.ANY` разрешено любое значение
-- `DataType.STRING` только значение типа `string`
-- `DataType.NUMBER` только значение типа `number`
-- `DataType.BOOLEAN` только значение типа `boolean`
-- `DataType.ARRAY` только значение типа `array`
-- `DataType.OBJECT` только значение типа `object`
+- `DataType.ANY` - разрешено любое значение
+- `DataType.STRING` - только значение типа `string`
+- `DataType.NUMBER` - только значение типа `number`
+- `DataType.BOOLEAN` - только значение типа `boolean`
+- `DataType.ARRAY` - только значение типа `array`
+- `DataType.OBJECT` - только значение типа `object`
+
+Опции
+
+- [type](#type) - тип значений;
+- [itemType](#itemType) - тип элемента (для массива);
+- [model](#model) - название модели (для объекта);
+- [primaryKey](#primaryKey) - первичный ключ;
+- [columnName](#columnName) - название колонки в базе данных;
+- [required](#required) - исключение `null` и `undefined`;
+- [default](#default) - значение по умолчанию;
+- [validate](#validate) - проверка формата;
+- [unique](#unique) - проверка уникальности;
 
 #### type
 
@@ -408,11 +437,11 @@ class User {
 Декоратор применяется к свойству экземпляра класса, определяя
 тип связи к целевой модели.
 
-- [Belongs To](#Belongs-To)
-- [Has One](#Has-One)
-- [Has Many](#Has-Many)
-- [References Many](#References-Many)
-- [Belongs To (полиморфная версия)](#Belongs-To-полиморфная-версия)
+- [Belongs To](#Belongs-To) - ссылка через внешний ключ;
+- [Has One](#Has-One) - обратная сторона Belongs To (*один к одному*);
+- [Has Many](#Has-Many) - обратная сторона Belongs To (*один ко многим*);
+- [References Many](#References-Many) - ссылка через массив идентификаторов;
+- [Belongs To (полиморфная версия)](#Belongs-To-полиморфная-версия) - внешний ключ и дискриминатор;
 
 #### Belongs To
 
