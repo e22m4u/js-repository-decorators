@@ -828,10 +828,10 @@ class Article {
 @model()
 class Image {
   @property(DataType.STRING)
-  ownerId?: string;
+  referenceId?: string;
 
   @property(DataType.STRING)
-  ownerType?: string;
+  referenceType?: string;
 
   @relation({
     type: RelationType.BELONGS_TO, // <=
@@ -839,12 +839,12 @@ class Image {
     // полиморфный режим позволяет хранить название целевой модели
     // в свойстве-дискриминаторе, которое формируется согласно
     // названию связи с постфиксом "Type", и в данном случае
-    // название целевой модели хранит "ownerId",
-    // а идентификатор документа "ownerType"
-    foreignKey: 'ownerId',     // (не обязательно)
-    discriminator: 'ownerType' // (не обязательно)
+    // название целевой модели хранит "referenceId",
+    // а идентификатор документа "referenceType"
+    foreignKey: 'referenceId',     // (не обязательно)
+    discriminator: 'referenceType' // (не обязательно)
   })
-  owner?: Author | Article;
+  reference?: Author | Article;
 }
 ```
 
@@ -875,30 +875,30 @@ class Image {
   {
     "_id": "68a9c9b52eab80fa02ee6ccb",
     "path": "/storage/upload/12.png",
-    "ownerType": "Author",
-    "ownerId": "68a9c85f31f4414606e7da78"
+    "referenceType": "Author",
+    "referenceId": "68a9c85f31f4414606e7da78"
   },
   {
     "_id": "68a9cfdf43fb7961ad68af1b",
     "path": "/storage/upload/13.png",
-    "ownerType": "Article",
-    "ownerId": "68a9cfd16767b49624fd16d6"
+    "referenceType": "Article",
+    "referenceId": "68a9cfd16767b49624fd16d6"
   }
 ]
 ```
 
-Извлечение документов *Image* и разрешение связи `owner`.
+Извлечение документов *Image* и разрешение связи `reference`.
 
 ```ts
-const images = imageRep.find({include: 'owner'});
+const images = imageRep.find({include: 'reference'});
 console.log(images);
 // [
 //   {
 //     id: '68a9c9b52eab80fa02ee6ccb',
 //     path: '/storage/upload/12.png',
-//     ownerType: 'Author',
-//     ownerId: '68a9c85f31f4414606e7da78',
-//     owner: {
+//     referenceType: 'Author',
+//     referenceId: '68a9c85f31f4414606e7da78',
+//     reference: {
 //       id: '68a9c85f31f4414606e7da78',
 //       name: 'John Doe',
 //       age: 24
@@ -907,9 +907,9 @@ console.log(images);
 //   {
 //     id: '68a9cfdf43fb7961ad68af1b',
 //     path: '/storage/upload/13.png',
-//     ownerType: 'Article',
-//     ownerId: '68a9cfd16767b49624fd16d6',
-//     owner: {
+//     referenceType: 'Article',
+//     referenceId: '68a9cfd16767b49624fd16d6',
+//     reference: {
 //       id: '68a9cfd16767b49624fd16d6',
 //       title: 'The History Logs',
 //       content: 'First published in 1912...'
@@ -933,16 +933,16 @@ import {property} from '@e22m4u/js-repository-decorators';
 @model()
 class Image {
   @property(DataType.STRING)
-  ownerId?: string;
+  referenceId?: string;
 
   @property(DataType.STRING)
-  ownerType?: string;
+  referenceType?: string;
 
   @relation({
     type: RelationType.BELONGS_TO,
     polymorphic: true,
   })
-  owner?: object;
+  reference?: object;
 }
 
 // модель User
@@ -953,12 +953,12 @@ class User {
 
   @relation({
     type: RelationType.HAS_ONE,
-    model: Image.name,    // название целевой модели
-    polymorphic: 'owner', // название полиморфной связи целевой модели
+    model: Image.name,        // название целевой модели
+    polymorphic: 'reference', // название полиморфной связи целевой модели
     // вместо названия связи можно явно указать свойства целевой модели
     //   polymorphic: true,
-    //   foreignKey: 'ownerId',
-    //   discriminator: 'ownerType',
+    //   foreignKey: 'referenceId',
+    //   discriminator: 'referenceType',
   })
   avatar?: Image;
 }
@@ -970,8 +970,8 @@ class User {
 {
   "_id": "68a9c9b52eab80fa02ee6ccb",
   "path": "/storage/upload/14.png",
-  "ownerType": "User",
-  "ownerId": "68a9c85f31f4414606e7da78"
+  "referenceType": "User",
+  "referenceId": "68a9c85f31f4414606e7da78"
 }
 ```
 
@@ -989,16 +989,115 @@ class User {
 ```ts
 const user = userRep.findOne({include: 'avatar'});
 console.log(user);
-{
-  id: '68a9c85f31f4414606e7da78',
-  name: 'John Doe',
-  avatar: {
-    id: '68a9c9b52eab80fa02ee6ccb',
-    path: '/storage/upload/14.png',
-    ownerType: 'User',
-    ownerId: '68a9c85f31f4414606e7da78'
-  }
+// {
+//   id: '68a9c85f31f4414606e7da78',
+//   name: 'John Doe',
+//   avatar: {
+//     id: '68a9c9b52eab80fa02ee6ccb',
+//     path: '/storage/upload/14.png',
+//     referenceType: 'User',
+//     referenceId: '68a9c85f31f4414606e7da78'
+//   }
+// }
+```
+
+#### <a id="RelationMetadataPolyHasMany"></a> Has Many (полиморфная версия)
+
+Целевая модель ссылается на текущую, используя внешний ключ и дискриминатор.  
+(обратная сторона полиморфной связи *Belongs To*)
+
+```ts
+import {RelationType} from '@e22m4u/js-repository';
+import {model} from '@e22m4u/js-repository-decorators';
+import {relation} from '@e22m4u/js-repository-decorators';
+import {property} from '@e22m4u/js-repository-decorators';
+
+// модель Image
+@model()
+class Image {
+  @property(DataType.STRING)
+  referenceId?: string;
+
+  @property(DataType.STRING)
+  referenceType?: string;
+
+  @relation({
+    type: RelationType.BELONGS_TO,
+    polymorphic: true,
+  })
+  reference?: object;
 }
+
+// модель Gallery
+@model()
+class Gallery {
+  @property(DataType.STRING)
+  title?: string;
+
+  @relation({
+    type: RelationType.HAS_MANY,
+    model: Image.name,        // название целевой модели
+    polymorphic: 'reference', // название полиморфной связи целевой модели
+    // вместо названия связи можно явно указать свойства целевой модели
+    //   polymorphic: true,
+    //   foreignKey: 'referenceId',
+    //   discriminator: 'referenceType',
+  })
+  images?: Image;
+}
+```
+
+Коллекция *Images*.
+
+```json
+[
+  {
+    "_id": "68aa0db2dedc4922180b9ebf",
+    "path": "/storage/upload/15.png",
+    "referenceType": "Gallery",
+    "referenceId": "68aa0d9bae2ef42208c2f4ec"
+  },
+  {
+    "_id": "68aa0db7852e06b0c3a1662b",
+    "path": "/storage/upload/16.png",
+    "referenceType": "Gallery",
+    "referenceId": "68aa0d9bae2ef42208c2f4ec"
+  }
+]
+```
+
+Документ *Gallery*.
+
+```json
+{
+  "_id": "68aa0d9bae2ef42208c2f4ec",
+  "title": "Photos of spring holidays."
+}
+```
+
+Извлечение документа *Gallery* и разрешение связи `images`.
+
+```ts
+const user = userRep.findOne({include: 'images'});
+console.log(user);
+// {
+//   id: '68aa0d9bae2ef42208c2f4ec',
+//   name: 'Photos of spring holidays.',
+//   images: [
+//     {
+//       _id: '68aa0db2dedc4922180b9ebf',
+//       path: '/storage/upload/15.png',
+//       referenceType: 'Gallery',
+//       referenceId: '68aa0d9bae2ef42208c2f4ec'
+//     },
+//     {
+//       id: '68aa0db7852e06b0c3a1662b',
+//       path: '/storage/upload/16.png',
+//       referenceType: 'Gallery',
+//       referenceId: '68aa0d9bae2ef42208c2f4ec'
+//     }
+//   ]
+// }
 ```
 
 ## Тесты
