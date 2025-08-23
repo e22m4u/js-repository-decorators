@@ -114,7 +114,7 @@ class User {
   role?: Role;
 }
 
-// получение репозиториев каждой модели
+// извлечение схем каждой модели
 const roleDef = getModelDefinitionFromClass(Role);
 const userDef = getModelDefinitionFromClass(User);
 
