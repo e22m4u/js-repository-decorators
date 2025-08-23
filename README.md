@@ -1,6 +1,6 @@
 # @e22m4u/js-repository-decorators
 
-TypeScript декораторы для модуля
+TypeScript декораторы для ORM/ODM модуля
 [@e22m4u/js-repository](https://www.npmjs.com/package/@e22m4u/js-repository),
 позволяющие описывать модели данных, свойства и связи с помощью
 декларативного синтаксиса.
