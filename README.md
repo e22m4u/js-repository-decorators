@@ -131,36 +131,51 @@ import {getModelDefinitionFromClass} from '@e22m4u/js-repository-decorators';
 const roleDef = getModelDefinitionFromClass(Role);
 const userDef = getModelDefinitionFromClass(User);
 
+console.log(roleDef);
+// {
+//   name: 'Role',
+//   datasource: 'myDatabase1',
+//   properties: {
+//     id: {
+//       type: 'string',
+//       primaryKey: true
+//     },
+//     name: {
+//       type: 'string',
+//       required: true
+//     }
+//   }
+// }
+
 console.log(userDef);
 // {
-//   "name": "User",
-//   "datasource": "myDatabase1",
-//   "properties": {
-//     "id": {
-//       "type": "string",
-//       "primaryKey": true,
+//   name: 'User',
+//   datasource: 'myDatabase1',
+//   properties: {
+//     id: {
+//       type: 'string',
+//       primaryKey: true,
 //     },
-//     "name": {
-//       "type": "string",
-//       "required": true,
+//     name: {
+//       type: 'string',
+//       required: true,
 //     },
-//     "roleId": {
-//       "type": "string",
-//       "default": "",
+//     roleId: {
+//       type: 'string',
+//       default: '',
 //     },
 //   },
-//   "relations": {
-//     "role": {
-//       "type": "belongsTo",
-//       "model": "Role"
+//   relations: {
+//     role: {
+//       type: 'belongsTo',
+//       model: 'Role'
 //     },
 //   },
 // },
 
-// регистрация моделей
+// регистрация моделей в схеме базы
 dbs.defineModel(roleDef);
 dbs.defineModel(userDef);
-
 ```
 
 4. Операции с данными и разрешение связей.
