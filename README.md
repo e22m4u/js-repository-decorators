@@ -50,11 +50,11 @@ import {DatabaseSchema} from '@e22m4u/js-repository';
 // создание экземпляра DatabaseSchema
 const dbs = new DatabaseSchema();
 
-// объявление константы источника данных
+// объявление константы для названия источника
 const MY_DATABASE_1 = 'myDatabase1';
 
-// объявление источника данных на примере MongoDB адаптера
-// @e22m4u/js-repository-mongodb-adapter (устанавливается отдельно)
+// объявление источника на примере MongoDB адаптера
+// см. модуль @e22m4u/js-repository-mongodb-adapter
 dbs.defineDatasource({
   name: MY_DATABASE_1, // название нового источника
   adapter: 'mongodb',  // название адаптера
@@ -120,7 +120,6 @@ class User {
   })
   role?: Role;
 }
-
 ```
 
 3. Регистрация моделей.
