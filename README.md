@@ -218,12 +218,14 @@ class User {}
 Декоратор применяется к свойству экземпляра класса, определяя
 тип допустимого значения.
 
-- `DataType.ANY` - разрешено любое значение
-- `DataType.STRING` - только значение типа `string`
-- `DataType.NUMBER` - только значение типа `number`
-- `DataType.BOOLEAN` - только значение типа `boolean`
-- `DataType.ARRAY` - только значение типа `array`
-- `DataType.OBJECT` - только значение типа `object`
+- `DataType.ANY` - разрешено любое значение;
+- `DataType.STRING` - только значение типа `string`;
+- `DataType.NUMBER` - только значение типа `number`;
+- `DataType.BOOLEAN` - только значение типа `boolean`;
+- `DataType.ARRAY` - только значение типа `array`;
+- `DataType.OBJECT` - только значение типа `object`;
+
+Пример:
 
 ```ts
 import {DataType} from '@e22m4u/js-repository';
@@ -236,7 +238,7 @@ class User {
 }
 ```
 
-Первым аргументом декоратора может быть передан объект `PropertyMetadata`.
+Первым аргументом декоратора может быть передан объект со следующими свойствами.
 
 - [type](#PropertyMetadataType) - тип значений;
 - [itemType](#PropertyMetadataItemType) - тип элемента (для массива);
