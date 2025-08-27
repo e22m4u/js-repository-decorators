@@ -70,6 +70,6 @@ describe('getModelDefinitionFromClass', function () {
     @model()
     class MyModel {}
     const res = getModelDefinitionFromClass(MyModel);
-    expect(res).to.be.eql({name: 'MyModel'});
+    expect(res).to.be.eql({name: 'MyModel', tableName: 'my'});
   });
 });

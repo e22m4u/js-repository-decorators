@@ -1,6 +1,7 @@
 import {Flatten} from '../../types.js';
 import {PartialBy} from '../../types.js';
 import {Constructor} from '../../types.js';
+import {toCamelCase} from '../../utils/index.js';
 import {ModelMetadata} from './model-metadata.js';
 import {ModelReflector} from './model-reflector.js';
 import {DecoratorTargetType} from '@e22m4u/ts-reflector';
@@ -22,9 +23,15 @@ export function model<T extends object>(options?: ModelOptions) {
     if (decoratorType !== DecoratorTargetType.CONSTRUCTOR)
       throw new Error('@model decorator is only supported on a class.');
     options = options ?? {};
+    const modelName = options.name ?? target.name;
+    const tableNameByClassName = toCamelCase(modelName).replace(
+      /([^^])Model$/,
+      '$1',
+    );
     const metadata = {
       ...options,
-      name: options.name ?? target.name,
+      name: modelName,
+      tableName: options.tableName ?? tableNameByClassName,
     };
     ModelReflector.setMetadata(metadata, target);
   };

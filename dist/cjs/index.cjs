@@ -31,9 +31,16 @@ __export(index_exports, {
   getModelDefinitionFromClass: () => getModelDefinitionFromClass,
   model: () => model,
   property: () => property,
-  relation: () => relation
+  relation: () => relation,
+  toCamelCase: () => toCamelCase
 });
 module.exports = __toCommonJS(index_exports);
+
+// dist/esm/utils/to-camel-case.js
+function toCamelCase(input) {
+  return input.replace(/(^\w|[A-Z]|\b\w)/g, (c) => c.toUpperCase()).replace(/\W+/g, "").replace(/(^\w)/g, (c) => c.toLowerCase());
+}
+__name(toCamelCase, "toCamelCase");
 
 // dist/esm/decorators/model/model-metadata.js
 var import_ts_reflector = require("@e22m4u/ts-reflector");
@@ -72,9 +79,12 @@ function model(options) {
     if (decoratorType !== import_ts_reflector3.DecoratorTargetType.CONSTRUCTOR)
       throw new Error("@model decorator is only supported on a class.");
     options = options ?? {};
+    const modelName = options.name ?? target.name;
+    const tableNameByClassName = toCamelCase(modelName).replace(/([^^])Model$/, "$1");
     const metadata = {
       ...options,
-      name: options.name ?? target.name
+      name: modelName,
+      tableName: options.tableName ?? tableNameByClassName
     };
     ModelReflector.setMetadata(metadata, target);
   };
@@ -217,5 +227,6 @@ __name(getModelDefinitionFromClass, "getModelDefinitionFromClass");
   getModelDefinitionFromClass,
   model,
   property,
-  relation
+  relation,
+  toCamelCase
 });

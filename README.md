@@ -286,6 +286,7 @@ class User {
 - [required](#PropertyDefinitionrequired) - исключение `null` и `undefined`;
 - [default](#PropertyDefinitiondefault) - значение по умолчанию;
 - [validate](#PropertyDefinitionvalidate) - проверка формата;
+- *transform* - модификаторы значения;
 - [unique](#PropertyDefinitionunique) - проверка уникальности;
 
 #### PropertyDefinition.type
