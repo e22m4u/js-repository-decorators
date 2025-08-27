@@ -1,7 +1,7 @@
-import { toCamelCase } from '../../utils/index.js';
 import { ModelReflector } from './model-reflector.js';
 import { DecoratorTargetType } from '@e22m4u/ts-reflector';
 import { getDecoratorTargetType } from '@e22m4u/ts-reflector';
+import { getTableNameByModelName } from '../../utils/index.js';
 /**
  * Model decorator.
  *
@@ -14,11 +14,10 @@ export function model(options) {
             throw new Error('@model decorator is only supported on a class.');
         options = options ?? {};
         const modelName = options.name ?? target.name;
-        const tableNameByClassName = toCamelCase(modelName).replace(/([^^])Model$/, '$1');
         const metadata = {
             ...options,
             name: modelName,
-            tableName: options.tableName ?? tableNameByClassName,
+            tableName: options.tableName ?? getTableNameByModelName(modelName),
         };
         ModelReflector.setMetadata(metadata, target);
     };

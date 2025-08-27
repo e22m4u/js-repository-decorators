@@ -29,18 +29,82 @@ __export(index_exports, {
   RELATIONS_METADATA_KEY: () => RELATIONS_METADATA_KEY,
   RelationReflector: () => RelationReflector,
   getModelDefinitionFromClass: () => getModelDefinitionFromClass,
+  getTableNameByModelName: () => getTableNameByModelName,
   model: () => model,
+  pluralize: () => pluralize,
   property: () => property,
   relation: () => relation,
   toCamelCase: () => toCamelCase
 });
 module.exports = __toCommonJS(index_exports);
 
+// dist/esm/utils/pluralize.js
+var singularExceptions = [
+  /access$/i,
+  /address$/i,
+  /alias$/i,
+  /bonus$/i,
+  /boss$/i,
+  /bus$/i,
+  /business$/i,
+  /canvas$/i,
+  /class$/i,
+  /cross$/i,
+  /dress$/i,
+  /focus$/i,
+  /gas$/i,
+  /glass$/i,
+  /kiss$/i,
+  /lens$/i,
+  /loss$/i,
+  /pass$/i,
+  /plus$/i,
+  /process$/i,
+  /status$/i,
+  /success$/i,
+  /virus$/i
+];
+function pluralize(input) {
+  if (!input || typeof input !== "string") {
+    return input;
+  }
+  if (/s$/i.test(input) && !singularExceptions.some((re) => re.test(input))) {
+    return input;
+  }
+  const lastChar = input.slice(-1);
+  const isLastCharUpper = lastChar === lastChar.toUpperCase() && lastChar !== lastChar.toLowerCase();
+  if (/(s|x|z|ch|sh)$/i.test(input)) {
+    return input + (isLastCharUpper ? "ES" : "es");
+  }
+  if (/[^aeiou]y$/i.test(input)) {
+    return input.slice(0, -1) + (isLastCharUpper ? "IES" : "ies");
+  }
+  return input + (isLastCharUpper ? "S" : "s");
+}
+__name(pluralize, "pluralize");
+
 // dist/esm/utils/to-camel-case.js
 function toCamelCase(input) {
-  return input.replace(/(^\w|[A-Z]|\b\w)/g, (c) => c.toUpperCase()).replace(/\W+/g, "").replace(/(^\w)/g, (c) => c.toLowerCase());
+  if (!input)
+    return "";
+  const spacedString = input.replace(/([-_])/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2");
+  const intermediateCased = spacedString.toLowerCase().replace(/\s(.)/g, ($1) => $1.toUpperCase()).replace(/\s/g, "");
+  if (!intermediateCased)
+    return "";
+  return intermediateCased.charAt(0).toLowerCase() + intermediateCased.slice(1);
 }
 __name(toCamelCase, "toCamelCase");
+
+// dist/esm/utils/get-table-name-by-model-name.js
+function getTableNameByModelName(className) {
+  const ccName = toCamelCase(className);
+  const woModel = ccName.replace(/Model$/i, "");
+  if (woModel.length <= 2) {
+    return pluralize(ccName);
+  }
+  return pluralize(woModel);
+}
+__name(getTableNameByModelName, "getTableNameByModelName");
 
 // dist/esm/decorators/model/model-metadata.js
 var import_ts_reflector = require("@e22m4u/ts-reflector");
@@ -80,11 +144,10 @@ function model(options) {
       throw new Error("@model decorator is only supported on a class.");
     options = options ?? {};
     const modelName = options.name ?? target.name;
-    const tableNameByClassName = toCamelCase(modelName).replace(/([^^])Model$/, "$1");
     const metadata = {
       ...options,
       name: modelName,
-      tableName: options.tableName ?? tableNameByClassName
+      tableName: options.tableName ?? getTableNameByModelName(modelName)
     };
     ModelReflector.setMetadata(metadata, target);
   };
@@ -225,7 +288,9 @@ __name(getModelDefinitionFromClass, "getModelDefinitionFromClass");
   RELATIONS_METADATA_KEY,
   RelationReflector,
   getModelDefinitionFromClass,
+  getTableNameByModelName,
   model,
+  pluralize,
   property,
   relation,
   toCamelCase

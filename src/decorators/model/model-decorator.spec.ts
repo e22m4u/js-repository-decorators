@@ -7,7 +7,7 @@ describe('model', function () {
     @model({name: 'FooBar'})
     class MyModel {}
     const res = ModelReflector.getMetadata(MyModel);
-    expect(res).to.be.eql({name: 'FooBar', tableName: 'fooBar'});
+    expect(res).to.be.eql({name: 'FooBar', tableName: 'fooBars'});
   });
 
   it('should set the given "base" option to the class metadata', function () {
@@ -17,7 +17,7 @@ describe('model', function () {
     expect(res).to.be.eql({
       name: 'MyModel',
       base: 'BaseModel',
-      tableName: 'my',
+      tableName: 'myModels',
     });
   });
 
@@ -28,7 +28,7 @@ describe('model', function () {
     expect(res).to.be.eql({
       name: 'MyModel',
       datasource: 'myDatasource',
-      tableName: 'my',
+      tableName: 'myModels',
     });
   });
 
@@ -43,7 +43,7 @@ describe('model', function () {
     @model()
     class FooBar {}
     const res = ModelReflector.getMetadata(FooBar);
-    expect(res).to.be.eql({name: 'FooBar', tableName: 'fooBar'});
+    expect(res).to.be.eql({name: 'FooBar', tableName: 'fooBars'});
   });
 
   describe('the "Model" postfix in class name', function () {
@@ -51,14 +51,14 @@ describe('model', function () {
       @model()
       class Model {}
       const res = ModelReflector.getMetadata(Model);
-      expect(res).to.be.eql({name: 'Model', tableName: 'model'});
+      expect(res).to.be.eql({name: 'Model', tableName: 'models'});
     });
 
     it('should cut the "Model" postfix from the "tableName" option if it came from the class name', function () {
       @model()
       class TargetModel {}
       const res = ModelReflector.getMetadata(TargetModel);
-      expect(res).to.be.eql({name: 'TargetModel', tableName: 'target'});
+      expect(res).to.be.eql({name: 'TargetModel', tableName: 'targets'});
     });
 
     it('should preserve the "Model" postfix in the given "tableName" option', function () {

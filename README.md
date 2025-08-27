@@ -134,6 +134,7 @@ const userDef = getModelDefinitionFromClass(User);
 console.log(roleDef);
 // {
 //   name: 'Role',
+//   tableName: 'roles',
 //   datasource: 'myDatabase1',
 //   properties: {
 //     id: {
@@ -150,6 +151,7 @@ console.log(roleDef);
 console.log(userDef);
 // {
 //   name: 'User',
+//   tableName: 'users',
 //   datasource: 'myDatabase1',
 //   properties: {
 //     id: {
@@ -214,7 +216,8 @@ console.log(userWithRole);
 
 ### @model(options?: ModelOptions)
 
-Декоратор применяется к классу и назначает его моделью определенной коллекции/таблицы в базе данных или встраиваемой частью других моделей.
+Декоратор применяется к классу и назначает его моделью определенной
+коллекции/таблицы в базе данных или встраиваемой частью других моделей.
 
 ```ts
 import {model} from '@e22m4u/js-repository-decorators';
