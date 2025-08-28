@@ -5,7 +5,6 @@ import {ModelMetadata} from './model-metadata.js';
 import {ModelReflector} from './model-reflector.js';
 import {DecoratorTargetType} from '@e22m4u/ts-reflector';
 import {getDecoratorTargetType} from '@e22m4u/ts-reflector';
-import {getTableNameByModelName} from '../../utils/index.js';
 
 /**
  * Model options.
@@ -23,11 +22,9 @@ export function model<T extends object>(options?: ModelOptions) {
     if (decoratorType !== DecoratorTargetType.CONSTRUCTOR)
       throw new Error('@model decorator is only supported on a class.');
     options = options ?? {};
-    const modelName = options.name ?? target.name;
     const metadata = {
       ...options,
-      name: modelName,
-      tableName: options.tableName ?? getTableNameByModelName(modelName),
+      name: options.name ?? target.name,
     };
     ModelReflector.setMetadata(metadata, target);
   };
