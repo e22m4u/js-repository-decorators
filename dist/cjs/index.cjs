@@ -70,7 +70,7 @@ var _ModelReflector = class _ModelReflector {
    * @param target
    */
   static getMetadata(target) {
-    return import_ts_reflector2.Reflector.getOwnMetadata(MODEL_METADATA_KEY, target);
+    return import_ts_reflector2.Reflector.getMetadata(MODEL_METADATA_KEY, target);
   }
 };
 __name(_ModelReflector, "ModelReflector");
@@ -109,7 +109,7 @@ var _PropertyReflector = class _PropertyReflector {
    * @param propertyKey
    */
   static setMetadata(metadata, target, propertyKey) {
-    const oldMap = import_ts_reflector6.Reflector.getOwnMetadata(PROPERTIES_METADATA_KEY, target);
+    const oldMap = import_ts_reflector6.Reflector.getMetadata(PROPERTIES_METADATA_KEY, target);
     const newMap = new Map(oldMap);
     newMap.set(propertyKey, metadata);
     import_ts_reflector6.Reflector.defineMetadata(PROPERTIES_METADATA_KEY, newMap, target);
@@ -120,7 +120,7 @@ var _PropertyReflector = class _PropertyReflector {
    * @param target
    */
   static getMetadata(target) {
-    const metadata = import_ts_reflector6.Reflector.getOwnMetadata(PROPERTIES_METADATA_KEY, target);
+    const metadata = import_ts_reflector6.Reflector.getMetadata(PROPERTIES_METADATA_KEY, target);
     return metadata ?? /* @__PURE__ */ new Map();
   }
 };
@@ -155,7 +155,7 @@ var _RelationReflector = class _RelationReflector {
    * @param propertyKey
    */
   static setMetadata(metadata, target, propertyKey) {
-    const oldMap = import_ts_reflector10.Reflector.getOwnMetadata(RELATIONS_METADATA_KEY, target);
+    const oldMap = import_ts_reflector10.Reflector.getMetadata(RELATIONS_METADATA_KEY, target);
     const newMap = new Map(oldMap);
     newMap.set(propertyKey, metadata);
     import_ts_reflector10.Reflector.defineMetadata(RELATIONS_METADATA_KEY, newMap, target);
@@ -166,7 +166,7 @@ var _RelationReflector = class _RelationReflector {
    * @param target
    */
   static getMetadata(target) {
-    const metadata = import_ts_reflector10.Reflector.getOwnMetadata(RELATIONS_METADATA_KEY, target);
+    const metadata = import_ts_reflector10.Reflector.getMetadata(RELATIONS_METADATA_KEY, target);
     return metadata ?? /* @__PURE__ */ new Map();
   }
 };

@@ -20,7 +20,7 @@ export class PropertyReflector {
     target: Constructor,
     propertyKey: string,
   ) {
-    const oldMap = Reflector.getOwnMetadata(PROPERTIES_METADATA_KEY, target);
+    const oldMap = Reflector.getMetadata(PROPERTIES_METADATA_KEY, target);
     const newMap = new Map(oldMap);
     newMap.set(propertyKey, metadata);
     Reflector.defineMetadata(PROPERTIES_METADATA_KEY, newMap, target);
@@ -32,7 +32,7 @@ export class PropertyReflector {
    * @param target
    */
   static getMetadata(target: Constructor): PropertyMetadataMap {
-    const metadata = Reflector.getOwnMetadata(PROPERTIES_METADATA_KEY, target);
+    const metadata = Reflector.getMetadata(PROPERTIES_METADATA_KEY, target);
     return metadata ?? new Map();
   }
 }

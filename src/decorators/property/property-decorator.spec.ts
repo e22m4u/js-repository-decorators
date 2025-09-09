@@ -2,21 +2,60 @@ import {expect} from 'chai';
 import {DataType} from '@e22m4u/js-repository';
 import {Reflector} from '@e22m4u/ts-reflector';
 import {property} from './property-decorator.js';
+import {mapEntries} from '../../utils/map-entries.js';
 import {PROPERTIES_METADATA_KEY} from './property-metadata.js';
 
+const MD1 = {type: DataType.STRING};
+const MD2 = {type: DataType.NUMBER};
+
 describe('property', function () {
-  it('sets a given metadata to property', function () {
-    const md1 = {type: DataType.STRING};
-    const md2 = {type: DataType.NUMBER};
+  it('should set a given metadata to a property', function () {
     class Target {
-      @property(md1)
+      @property(MD1)
       prop1?: string;
-      @property(md2)
+      @property(MD2)
       prop2?: number;
     }
-    const res = Reflector.getOwnMetadata(PROPERTIES_METADATA_KEY, Target);
-    expect(res!.size).to.be.eq(2);
-    expect(res!.get('prop1')).to.be.eq(md1);
-    expect(res!.get('prop2')).to.be.eq(md2);
+    const res = Reflector.getMetadata(PROPERTIES_METADATA_KEY, Target);
+    expect(mapEntries(res)).to.be.eql([
+      ['prop1', MD1],
+      ['prop2', MD2],
+    ]);
+  });
+
+  it('should extend a target metadata that inherits from a parent class', function () {
+    class BaseTarget {
+      @property(MD1)
+      prop1?: string;
+    }
+    class Target extends BaseTarget {
+      @property(MD2)
+      prop2?: number;
+    }
+    const res = Reflector.getMetadata(PROPERTIES_METADATA_KEY, Target);
+    expect(mapEntries(res)).to.be.eql([
+      ['prop1', MD1],
+      ['prop2', MD2],
+    ]);
+  });
+
+  it('should not affect a parent metadata', function () {
+    class BaseTarget {
+      @property(MD1)
+      prop1?: string;
+    }
+    const res1 = Reflector.getMetadata(PROPERTIES_METADATA_KEY, BaseTarget);
+    expect(mapEntries(res1)).to.be.eql([['prop1', MD1]]);
+    class Target extends BaseTarget {
+      @property(MD2)
+      prop2?: number;
+    }
+    const res2 = Reflector.getMetadata(PROPERTIES_METADATA_KEY, BaseTarget);
+    expect(mapEntries(res2)).to.be.eql([['prop1', MD1]]);
+    const res3 = Reflector.getMetadata(PROPERTIES_METADATA_KEY, Target);
+    expect(mapEntries(res3)).to.be.eql([
+      ['prop1', MD1],
+      ['prop2', MD2],
+    ]);
   });
 });

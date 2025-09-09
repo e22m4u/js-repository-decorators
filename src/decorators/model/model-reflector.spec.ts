@@ -3,42 +3,74 @@ import {Reflector} from '@e22m4u/ts-reflector';
 import {ModelReflector} from './model-reflector.js';
 import {MODEL_METADATA_KEY} from './model-metadata.js';
 
+const MD1 = {name: 'Target1', datasource: 'datasource1'};
+const MD2 = {name: 'Target2', datasource: 'datasource2'};
+
 describe('ModelReflector', function () {
   describe('setMetadata', function () {
-    it('sets a given value as target metadata', function () {
+    it('should set a given metadata to a target', function () {
       class Target {}
-      const md = {name: 'Target', datasource: 'myDatasource'};
-      ModelReflector.setMetadata(md, Target);
-      const res = Reflector.getOwnMetadata(MODEL_METADATA_KEY, Target);
-      expect(res).to.be.eq(md);
+      ModelReflector.setMetadata(MD1, Target);
+      const res = Reflector.getMetadata(MODEL_METADATA_KEY, Target);
+      expect(res).to.be.eq(MD1);
     });
 
-    it('overrides existing metadata', function () {
+    it('should override existing metadata', function () {
       class Target {}
-      const md1 = {name: 'Target', datasource: 'datasource1'};
-      const md2 = {name: 'Target', datasource: 'datasource2'};
-      ModelReflector.setMetadata(md1, Target);
-      const res1 = Reflector.getOwnMetadata(MODEL_METADATA_KEY, Target);
-      expect(res1).to.be.eq(md1);
-      ModelReflector.setMetadata(md2, Target);
-      const res2 = Reflector.getOwnMetadata(MODEL_METADATA_KEY, Target);
-      expect(res2).to.be.eq(md2);
+      ModelReflector.setMetadata(MD1, Target);
+      const res1 = Reflector.getMetadata(MODEL_METADATA_KEY, Target);
+      expect(res1).to.be.eq(MD1);
+      ModelReflector.setMetadata(MD2, Target);
+      const res2 = Reflector.getMetadata(MODEL_METADATA_KEY, Target);
+      expect(res2).to.be.eq(MD2);
+    });
+
+    it('should override a target metadata that inherits from a parent class', function () {
+      class BaseTarget {}
+      class Target extends BaseTarget {}
+      ModelReflector.setMetadata(MD1, BaseTarget);
+      const res1 = Reflector.getMetadata(MODEL_METADATA_KEY, BaseTarget);
+      expect(res1).to.be.eq(MD1);
+      const res2 = Reflector.getMetadata(MODEL_METADATA_KEY, Target);
+      expect(res2).to.be.eq(MD1);
+      ModelReflector.setMetadata(MD2, Target);
+      const res3 = Reflector.getMetadata(MODEL_METADATA_KEY, Target);
+      expect(res3).to.be.eq(MD2);
+    });
+
+    it('should not affect a parent metadata', function () {
+      class BaseTarget {}
+      class Target extends BaseTarget {}
+      ModelReflector.setMetadata(MD1, BaseTarget);
+      const res1 = Reflector.getMetadata(MODEL_METADATA_KEY, BaseTarget);
+      expect(res1).to.be.eq(MD1);
+      ModelReflector.setMetadata(MD2, Target);
+      const res2 = Reflector.getMetadata(MODEL_METADATA_KEY, Target);
+      expect(res2).to.be.eq(MD2);
+      expect(res1).to.be.eq(MD1);
     });
   });
 
   describe('getMetadata', function () {
-    it('returns an existing metadata of the target', function () {
+    it('should return a target metadata', function () {
       class Target {}
-      const md = {name: 'Target', datasource: 'myDatasource'};
-      Reflector.defineMetadata(MODEL_METADATA_KEY, md, Target);
+      Reflector.defineMetadata(MODEL_METADATA_KEY, MD1, Target);
       const res = ModelReflector.getMetadata(Target);
-      expect(res).to.be.eq(md);
+      expect(res).to.be.eq(MD1);
     });
 
-    it('returns undefined if no metadata', function () {
+    it('should return undefined if no metadata', function () {
       class Target {}
       const res = ModelReflector.getMetadata(Target);
       expect(res).to.be.undefined;
+    });
+
+    it('should return a parent metadata if a target have no metadata', function () {
+      class BaseTarget {}
+      class Target extends BaseTarget {}
+      Reflector.defineMetadata(MODEL_METADATA_KEY, MD1, BaseTarget);
+      const res = ModelReflector.getMetadata(Target);
+      expect(res).to.be.eq(MD1);
     });
   });
 });

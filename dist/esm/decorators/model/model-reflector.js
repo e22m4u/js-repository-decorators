@@ -19,6 +19,6 @@ export class ModelReflector {
      * @param target
      */
     static getMetadata(target) {
-        return Reflector.getOwnMetadata(MODEL_METADATA_KEY, target);
+        return Reflector.getMetadata(MODEL_METADATA_KEY, target);
     }
 }

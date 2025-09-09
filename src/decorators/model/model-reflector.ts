@@ -23,6 +23,6 @@ export class ModelReflector {
    * @param target
    */
   static getMetadata(target: Constructor): ModelMetadata | undefined {
-    return Reflector.getOwnMetadata(MODEL_METADATA_KEY, target);
+    return Reflector.getMetadata(MODEL_METADATA_KEY, target);
   }
 }
